@@ -1,0 +1,255 @@
+﻿<Window x:Class="MOE_UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        DataContext="{StaticResource Locator}" d:DesignHeight="768" d:DesignWidth="1024">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Height" Value="26"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Height" Value="26"/>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter 
+                        Property="ToolTip"
+                        Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}">
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Height" Value="26"/>
+
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Name="WindowControls">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+
+        <Grid Name="CampaignRegionControls" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+
+            <Label 
+            Content="Create Campaign"
+            Grid.Row="0" 
+            Grid.Column="0" FontWeight="Bold">
+            </Label>
+
+            <Label 
+                Content="Campaign Name" 
+                Grid.Row="1" 
+                Grid.Column="0">
+            </Label>
+
+            <TextBox 
+                Grid.Row="1" 
+                Grid.Column="1"
+                Text="{Binding CampaignViewModel.SelectedCampaignName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+            </TextBox>
+
+            <Label 
+                Content="Region Name" 
+                Grid.Row="2" 
+                Grid.Column="0">
+            </Label>
+
+            <ComboBox
+                Grid.Row="2"
+                Grid.Column="1"
+                ItemsSource="{Binding RegionViewModel.Regions}"
+                SelectedItem="{Binding RegionViewModel.SelectedRegion}">
+            </ComboBox>
+
+            <Label 
+                Content="Schedule Start" 
+                Grid.Row="3" 
+                Grid.Column="0">
+            </Label>
+
+            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                <DatePicker
+                    SelectedDate="{Binding RegionViewModel.DateTimeViewModel.SelectedStartDate}"/>
+                <ComboBox 
+                    ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Hours}"
+                    SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedStartHour}"
+                    Width="40" SelectedIndex="0">
+
+                </ComboBox>
+                <ComboBox 
+                    ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Minutes}"
+                    SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedStartMinute}"
+                    Width="40" SelectedIndex="0">
+
+                </ComboBox>
+            </StackPanel>
+
+            <Label 
+               Content="Schedule End" 
+               Grid.Row="4" 
+               Grid.Column="0">
+            </Label>
+
+            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                <DatePicker
+                    SelectedDate="{Binding RegionViewModel.DateTimeViewModel.SelectedEndDate}">
+                </DatePicker>
+                <ComboBox 
+                    ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Hours}"
+                    SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedStartHour}"
+                    Width="40" SelectedIndex="0">
+
+                </ComboBox>
+                <ComboBox 
+                    ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Minutes}"
+                    SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedEndMinute}"
+                    Width="40" SelectedIndex="0">
+
+                </ComboBox>
+            </StackPanel>
+
+            <TextBox 
+                Text="target_device_os_family"
+                Grid.Row="5">
+                
+            </TextBox>
+
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" ></ComboBox>
+                <ComboBox Grid.Column="1" ></ComboBox>
+            </Grid>
+
+            <TextBox 
+                Grid.Row="6" 
+                Text="target_device_os_version"></TextBox>
+
+            <Grid Grid.Row="6" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" ></ComboBox>
+                <ComboBox Grid.Column="1" ></ComboBox>
+            </Grid>
+
+            <TextBox 
+                Grid.Row="7" 
+                Text="last_communicated"></TextBox>
+
+            <Grid Grid.Row="7" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" ></ComboBox>
+                <ComboBox Grid.Column="1" ></ComboBox>
+            </Grid>
+
+
+            <Label Grid.Row="8" Grid.Column="0" Content="Email Address Filter" FontWeight="Bold"></Label>
+            <Label Grid.Row="8" Grid.Column="1" Content="Email Addresses Count"></Label>
+            <TextBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"></TextBox>
+            <Button
+                Grid.Row="10"
+                Grid.Column="0"
+                Content="Remove Region">
+            </Button>
+            <Button
+                Command="{Binding CampaignViewModel.AddRegionCommand}"
+                Grid.Row="10" Grid.Column="1"
+                Content="Add Region">
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+
+            <Label 
+                Content="Regions"
+                Grid.Row="0" FontWeight="Bold">
+            </Label>
+
+            <DataGrid
+                ItemsSource="{Binding CampaignViewModel.Regions}"
+                AutoGenerateColumns="True"                
+                Grid.Row="1">
+            </DataGrid>
+
+            <Button
+                Content="Update Region"
+                Grid.Row="2">
+            </Button>
+
+            <Label
+                Content="Criteria"
+                Grid.Row="3" FontWeight="Bold">
+            </Label>
+
+            <DataGrid
+                ItemsSource="{Binding CampaignViewModel.SelectedRegionRow}"
+                AutoGenerateColumns="True"
+                Grid.Row="4">
+            </DataGrid>
+
+            <Button
+                Grid.Row="5"
+                Content="Create Campaign">
+            </Button>
+        </Grid>
+
+
+    </Grid>
+</Window>
