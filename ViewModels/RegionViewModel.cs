@@ -18,14 +18,14 @@ namespace MOE_UI.ViewModels
         {
             DateTimeViewModel = dateTimeViewModel;
             CriteriaViewModel = criteriaViewModel;
+
+            ValidateProperty(nameof(SelectedRegion), SelectedRegion);
         }
 
         public DateTimeViewModel DateTimeViewModel { get; set; }
         public CriteriaViewModel CriteriaViewModel { get; set; }
 
         public string[] Regions { get; } = { "AMRS", "AMRS2", "AMRS3", "APAC", "EMEA" };
-
-
 
         public DateTime SelectedStartDateTimeUtc
         {
@@ -48,16 +48,7 @@ namespace MOE_UI.ViewModels
 
         public ObservableCollection<CriterionViewModel> SelectedCriteria
         {
-            get
-            {
-                var criteria = new ObservableCollection<CriterionViewModel>
-                {
-                    new CriterionViewModel(CriteriaViewModel.SelectedTargetDeviceOsField, CriteriaViewModel.SelectedTargetDeviceOsOperand, CriteriaViewModel.SelectedTargetDeviceOsValue),
-                    new CriterionViewModel(CriteriaViewModel.SelectedTargetOsFamily, CriteriaViewModel.SelectedTargetOsFamilyOperand, CriteriaViewModel.SelectedTargetOsFamilyValue),
-                    new CriterionViewModel(CriteriaViewModel.SelectedTargetLastCommunicatedDays, CriteriaViewModel.SelectedTargetLastCommunicatedDaysOperand, CriteriaViewModel.SelectedTargetLastCommunicatedDaysValue)
-                };
-                return criteria;
-            }
+            get => CriteriaViewModel.GetCriteria();
         }
 
         public override void ValidateProperty(string propertyName, object value)

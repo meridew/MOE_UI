@@ -1,43 +1,54 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace MOE_UI.ViewModels
 {
     public class CriteriaViewModel : BaseViewModel
     {
+        public CriteriaViewModel()
+        {
+            ValidateProperty(nameof(SelectedTargetDeviceOsFamilyOperand), SelectedTargetDeviceOsFamilyOperand);
+            ValidateProperty(nameof(SelectedTargetDeviceOsFamilyValue), SelectedTargetDeviceOsFamilyValue);
+            ValidateProperty(nameof(SelectedTargetDeviceOsVersionOperand), SelectedTargetDeviceOsVersionOperand);
+            ValidateProperty(nameof(SelectedTargetDeviceOsVersionValue), SelectedTargetDeviceOsVersionValue);
+            ValidateProperty(nameof(SelectedTargetLastCommunicatedDaysOperand), SelectedTargetLastCommunicatedDaysOperand);
+            ValidateProperty(nameof(SelectedTargetLastCommunicatedDaysValue), SelectedTargetLastCommunicatedDaysValue);
+        }
+        
         public string[] Operands { get; } = new[] { "=", ">", "<" };
         public string[] DeviceOsFamilies { get; } = new[] { "ios", "android" };
         
         string _selectedTargetDeviceOsFamilyField = "target_os_family";
 
-        public string SelectedTargetOsFamily
+        public string SelectedTargetDeviceOsFamilyField
         {
             get => _selectedTargetDeviceOsFamilyField;
             set => SetProperty(ref _selectedTargetDeviceOsFamilyField, value);
         }
 
         string _selectedTargetDeviceOsFamilyOperand = string.Empty;
-        public string SelectedTargetOsFamilyOperand
+        public string SelectedTargetDeviceOsFamilyOperand
         {
             get => _selectedTargetDeviceOsFamilyOperand;
             set => SetProperty(ref _selectedTargetDeviceOsFamilyOperand, value);
         }
 
         string _selectedTargetDeviceOsFamilyValue = string.Empty;
-        public string SelectedTargetOsFamilyValue
+        public string SelectedTargetDeviceOsFamilyValue
         {
             get => _selectedTargetDeviceOsFamilyValue;
             set => SetProperty(ref _selectedTargetDeviceOsFamilyValue, value);
         }
 
-        string _selectedTargetDeviceOsVersionField = "target_device_os";
-        public string SelectedTargetDeviceOsField
+        string _selectedTargetDeviceOsVersionField = "target_os_version";
+        public string SelectedTargetDeviceOsVersionField
         {
             get => _selectedTargetDeviceOsVersionField;
             set => SetProperty(ref _selectedTargetDeviceOsVersionField, value);
         }
 
         string _selectedTargetDeviceOsVersionOperand = string.Empty;
-        public string SelectedTargetDeviceOsOperand
+        public string SelectedTargetDeviceOsVersionOperand
         {
             get => _selectedTargetDeviceOsVersionOperand;
             set => SetProperty(ref _selectedTargetDeviceOsVersionOperand, value);
@@ -45,18 +56,18 @@ namespace MOE_UI.ViewModels
 
         string _selectedTargetDeviceOsVersionValue = string.Empty;
 
-        public string SelectedTargetDeviceOsValue
+        public string SelectedTargetDeviceOsVersionValue
         {
             get => _selectedTargetDeviceOsVersionValue;
             set => SetProperty(ref _selectedTargetDeviceOsVersionValue, value);
         }
 
-        string _selectedTargetLastCommunicatedDays = "last_communicated_days";
+        string _selectedTargetLastCommunicatedDaysField = "target_last_communicated_days";
 
-        public string SelectedTargetLastCommunicatedDays
+        public string SelectedTargetLastCommunicatedDaysField
         {
-            get => _selectedTargetLastCommunicatedDays;
-            set => SetProperty(ref _selectedTargetLastCommunicatedDays, value);
+            get => _selectedTargetLastCommunicatedDaysField;
+            set => SetProperty(ref _selectedTargetLastCommunicatedDaysField, value);
         }
 
         string _selectedTargetLastCommunicatedDaysOperand = string.Empty;
@@ -75,6 +86,18 @@ namespace MOE_UI.ViewModels
             set => SetProperty(ref _selectedTargetLastCommunicatedDaysValue, value);
         }
 
+
+        public ObservableCollection<CriterionViewModel> GetCriteria()
+        {
+            var criteria = new ObservableCollection<CriterionViewModel>
+                {
+                    new CriterionViewModel(SelectedTargetDeviceOsVersionField, SelectedTargetDeviceOsVersionOperand, SelectedTargetDeviceOsVersionValue),
+                    new CriterionViewModel(SelectedTargetDeviceOsFamilyField, SelectedTargetDeviceOsFamilyOperand, SelectedTargetDeviceOsFamilyValue),
+                    new CriterionViewModel(SelectedTargetLastCommunicatedDaysField, SelectedTargetLastCommunicatedDaysOperand, SelectedTargetLastCommunicatedDaysValue)
+                };
+            return criteria;
+        }
+
         public override void ValidateProperty(string propertyName, object value)
         {
             base.ValidateProperty(propertyName, value);
@@ -83,46 +106,28 @@ namespace MOE_UI.ViewModels
 
             switch (propertyName)
             {
-                case nameof(SelectedTargetDeviceOsField):
-                    if (string.IsNullOrEmpty(SelectedTargetDeviceOsField))
-                    {
-                        AddError(propertyName, "Field is required.");
-                    }
-                    break;
-                case nameof(SelectedTargetDeviceOsOperand):
-                    if (string.IsNullOrEmpty(SelectedTargetDeviceOsOperand))
+                case nameof(SelectedTargetDeviceOsFamilyOperand):
+                    if (string.IsNullOrEmpty(SelectedTargetDeviceOsFamilyOperand))
                     {
                         AddError(propertyName, "Operand is required.");
                     }
                     break;
-                case nameof(SelectedTargetDeviceOsValue):
-                    if (string.IsNullOrEmpty(SelectedTargetDeviceOsValue))
+                case nameof(SelectedTargetDeviceOsFamilyValue):
+                    if (string.IsNullOrEmpty(SelectedTargetDeviceOsFamilyValue))
                     {
                         AddError(propertyName, "Value is required.");
                     }
                     break;
-                case nameof(SelectedTargetOsFamily):
-                    if (string.IsNullOrEmpty(SelectedTargetOsFamily))
-                    {
-                        AddError(propertyName, "Field is required.");
-                    }
-                    break;
-                case nameof(SelectedTargetOsFamilyOperand):
-                    if (string.IsNullOrEmpty(SelectedTargetOsFamilyOperand))
+                case nameof(SelectedTargetDeviceOsVersionOperand):
+                    if (string.IsNullOrEmpty(SelectedTargetDeviceOsVersionOperand))
                     {
                         AddError(propertyName, "Operand is required.");
                     }
                     break;
-                case nameof(SelectedTargetOsFamilyValue):
-                    if (string.IsNullOrEmpty(SelectedTargetOsFamilyValue))
+                case nameof(SelectedTargetDeviceOsVersionValue):
+                    if (string.IsNullOrEmpty(SelectedTargetDeviceOsVersionValue))
                     {
                         AddError(propertyName, "Value is required.");
-                    }
-                    break;
-                case nameof(SelectedTargetLastCommunicatedDays):
-                    if (string.IsNullOrEmpty(SelectedTargetLastCommunicatedDays))
-                    {
-                        AddError(propertyName, "Field is required.");
                     }
                     break;
                 case nameof(SelectedTargetLastCommunicatedDaysOperand):
@@ -138,6 +143,6 @@ namespace MOE_UI.ViewModels
                     }
                     break;
             }
-        }
+        }   
     }
 }

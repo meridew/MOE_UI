@@ -15,6 +15,7 @@ namespace MOE_UI.ViewModels
         {
             RegionViewModel = regionViewModel;
             EmailViewModel = emailViewModel;
+            ValidateProperty(nameof(SelectedCampaignName), SelectedCampaignName);
             InitCommands();
         }
 
@@ -59,6 +60,46 @@ namespace MOE_UI.ViewModels
         }
 
         public ICommand AddRegionCommand { get; private set; }
+        public ICommand UpdateRegionCommand { get; private set; }
+
+        public bool CanUpdateRegion()
+        {
+            if(SelectedRegionRow != null)
+            {
+                return SelectedRegionRow.RegionName != RegionViewModel.SelectedRegion ||
+                SelectedRegionRow.ScheduleStart != RegionViewModel.SelectedStartDateTime ||
+                SelectedRegionRow.ScheduleEnd != RegionViewModel.SelectedEndDateTime ||
+                SelectedRegionRow.ScheduleStartUTC != RegionViewModel.SelectedStartDateTimeUtc ||
+                SelectedRegionRow.ScheduleEndUTC != RegionViewModel.SelectedEndDateTimeUtc ||
+                SelectedRegionRow.EmailAddresses != EmailViewModel.EmailAddresses ||
+                SelectedRegionRow.EmailAddressCount != EmailViewModel.EmailAddressCount ||
+                SelectedRegionRow.Stages[0].Criteria[1].Operand != RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyOperand ||
+                SelectedRegionRow.Stages[0].Criteria[1].Value != RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyValue ||
+                SelectedRegionRow.Stages[0].Criteria[0].Operand != RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionOperand ||
+                SelectedRegionRow.Stages[0].Criteria[0].Value != RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionValue ||
+                SelectedRegionRow.Stages[0].Criteria[2].Operand != RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysOperand ||
+                SelectedRegionRow.Stages[0].Criteria[2].Value != RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysValue;
+            }
+            return false;
+        }
+
+        public void UpdateRegion()
+        {
+            SelectedRegionRow.CampaignName = SelectedCampaignName;
+            SelectedRegionRow.RegionName = RegionViewModel.SelectedRegion;
+            SelectedRegionRow.ScheduleStart = RegionViewModel.SelectedStartDateTime;
+            SelectedRegionRow.ScheduleEnd = RegionViewModel.SelectedEndDateTime;
+            SelectedRegionRow.ScheduleStartUTC = RegionViewModel.SelectedStartDateTimeUtc;
+            SelectedRegionRow.ScheduleEndUTC = RegionViewModel.SelectedEndDateTimeUtc;
+            SelectedRegionRow.EmailAddresses = EmailViewModel.EmailAddresses;
+            SelectedRegionRow.EmailAddressCount = EmailViewModel.EmailAddressCount;
+            SelectedRegionRow.Stages[0].Criteria[1].Operand = RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyOperand;
+            SelectedRegionRow.Stages[0].Criteria[1].Value = RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyValue;
+            SelectedRegionRow.Stages[0].Criteria[0].Operand = RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionOperand;
+            SelectedRegionRow.Stages[0].Criteria[0].Value = RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionValue;
+            SelectedRegionRow.Stages[0].Criteria[2].Operand = RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysOperand;
+            SelectedRegionRow.Stages[0].Criteria[2].Value = RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysValue;
+        }
 
         public bool CanAddRegion()
         {
@@ -84,6 +125,7 @@ namespace MOE_UI.ViewModels
         public void InitCommands()
         {
             AddRegionCommand = new RelayCommand(AddRegion, CanAddRegion);
+            UpdateRegionCommand = new RelayCommand(UpdateRegion, CanUpdateRegion);
         }
 
         private void UpdateControlsOnSelectionChange(CriteriaFileViewModel value, RegionViewModel regionViewModel)
@@ -99,10 +141,10 @@ namespace MOE_UI.ViewModels
             dtvm.SelectedEndHour = value.ScheduleEnd.Hour;
             dtvm.SelectedStartMinute = value.ScheduleStart.Minute;
             dtvm.SelectedEndMinute = value.ScheduleEnd.Minute;
-            cvm.SelectedTargetOsFamilyOperand = value.Stages[0].Criteria[1].Operand;
-            cvm.SelectedTargetOsFamilyValue = value.Stages[0].Criteria[1].Value;
-            cvm.SelectedTargetDeviceOsOperand = value.Stages[0].Criteria[0].Operand;
-            cvm.SelectedTargetDeviceOsValue = value.Stages[0].Criteria[0].Value;
+            cvm.SelectedTargetDeviceOsFamilyOperand = value.Stages[0].Criteria[1].Operand;
+            cvm.SelectedTargetDeviceOsFamilyValue = value.Stages[0].Criteria[1].Value;
+            cvm.SelectedTargetDeviceOsVersionOperand = value.Stages[0].Criteria[0].Operand;
+            cvm.SelectedTargetDeviceOsVersionValue = value.Stages[0].Criteria[0].Value;
             cvm.SelectedTargetLastCommunicatedDaysOperand = value.Stages[0].Criteria[2].Operand;
             cvm.SelectedTargetLastCommunicatedDaysValue = value.Stages[0].Criteria[2].Value;
             EmailViewModel.EmailAddresses = value.EmailAddresses;

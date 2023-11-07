@@ -33,5 +33,7 @@ namespace MOE_UI.ViewModels
                 EmailAddressCount = EmailAddresses.Split('\n').Length;
             }
         }
+
+
     }
 }
