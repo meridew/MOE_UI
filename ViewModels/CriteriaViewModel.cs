@@ -4,7 +4,7 @@ namespace MOE_UI.ViewModels
 {
     public class CriteriaViewModel : BaseViewModel
     {
-        public string[] Operands { get; } = new[] { "=", "!=", ">", "<", ">=", "<=" };
+        public string[] Operands { get; } = new[] { "=", ">", "<" };
         public string[] DeviceOsFamilies { get; } = new[] { "ios", "android" };
         
         string _selectedTargetDeviceOsFamilyField = "target_os_family";
@@ -75,9 +75,69 @@ namespace MOE_UI.ViewModels
             set => SetProperty(ref _selectedTargetLastCommunicatedDaysValue, value);
         }
 
-        public virtual void ValidateProperty(string propertyName, object value)
+        public override void ValidateProperty(string propertyName, object value)
         {
-            throw new NotImplementedException();
+            base.ValidateProperty(propertyName, value);
+
+            ClearError(propertyName);
+
+            switch (propertyName)
+            {
+                case nameof(SelectedTargetDeviceOsField):
+                    if (string.IsNullOrEmpty(SelectedTargetDeviceOsField))
+                    {
+                        AddError(propertyName, "Field is required.");
+                    }
+                    break;
+                case nameof(SelectedTargetDeviceOsOperand):
+                    if (string.IsNullOrEmpty(SelectedTargetDeviceOsOperand))
+                    {
+                        AddError(propertyName, "Operand is required.");
+                    }
+                    break;
+                case nameof(SelectedTargetDeviceOsValue):
+                    if (string.IsNullOrEmpty(SelectedTargetDeviceOsValue))
+                    {
+                        AddError(propertyName, "Value is required.");
+                    }
+                    break;
+                case nameof(SelectedTargetOsFamily):
+                    if (string.IsNullOrEmpty(SelectedTargetOsFamily))
+                    {
+                        AddError(propertyName, "Field is required.");
+                    }
+                    break;
+                case nameof(SelectedTargetOsFamilyOperand):
+                    if (string.IsNullOrEmpty(SelectedTargetOsFamilyOperand))
+                    {
+                        AddError(propertyName, "Operand is required.");
+                    }
+                    break;
+                case nameof(SelectedTargetOsFamilyValue):
+                    if (string.IsNullOrEmpty(SelectedTargetOsFamilyValue))
+                    {
+                        AddError(propertyName, "Value is required.");
+                    }
+                    break;
+                case nameof(SelectedTargetLastCommunicatedDays):
+                    if (string.IsNullOrEmpty(SelectedTargetLastCommunicatedDays))
+                    {
+                        AddError(propertyName, "Field is required.");
+                    }
+                    break;
+                case nameof(SelectedTargetLastCommunicatedDaysOperand):
+                    if (string.IsNullOrEmpty(SelectedTargetLastCommunicatedDaysOperand))
+                    {
+                        AddError(propertyName, "Operand is required.");
+                    }
+                    break;
+                case nameof(SelectedTargetLastCommunicatedDaysValue):
+                    if (string.IsNullOrEmpty(SelectedTargetLastCommunicatedDaysValue))
+                    {
+                        AddError(propertyName, "Value is required.");
+                    }
+                    break;
+            }
         }
     }
 }

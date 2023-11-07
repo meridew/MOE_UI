@@ -5,37 +5,44 @@ namespace MOE_UI.Factories
 {
     public class ViewModelFactory : IViewModelFactory
     {
-        private readonly DateTimeViewModel _dateTimeViewModel;
-        private readonly CriteriaViewModel _criteriaViewModel;
-        private readonly Lazy<RegionViewModel> _lazyRegionViewModel; // Lazy<T> for lazy initialization
+        private readonly DateTimeViewModel dateTimeViewModel;
+        private readonly CriteriaViewModel criteriaViewModel;
+        private readonly EmailViewModel emailViewModel;
+        private readonly Lazy<RegionViewModel> lazyRegionViewModel; // Lazy<T> for lazy initialization
 
         public ViewModelFactory()
         {
-            _dateTimeViewModel = new DateTimeViewModel();
-            _criteriaViewModel = new CriteriaViewModel();
-            _lazyRegionViewModel = new Lazy<RegionViewModel>(() => new RegionViewModel(_dateTimeViewModel, _criteriaViewModel));
+            dateTimeViewModel = new DateTimeViewModel();
+            criteriaViewModel = new CriteriaViewModel();
+            emailViewModel = new EmailViewModel();
+            lazyRegionViewModel = new Lazy<RegionViewModel>(() => new RegionViewModel(dateTimeViewModel, criteriaViewModel));
         }
 
         public CampaignViewModel CreateCampaignViewModel()
         {
             // Ensure we reuse the same RegionViewModel instance
-            return new CampaignViewModel(_lazyRegionViewModel.Value);
+            return new CampaignViewModel(lazyRegionViewModel.Value, emailViewModel);
         }
 
         public DateTimeViewModel CreateDateTimeViewModel()
         {
-            return _dateTimeViewModel;
+            return dateTimeViewModel;
         }
 
         public RegionViewModel CreateRegionViewModel()
         {
             // The Value property ensures that the instance is created only once.
-            return _lazyRegionViewModel.Value;
+            return lazyRegionViewModel.Value;
         }
 
         public CriteriaViewModel CreateCriteriaViewModel()
         {
-            return _criteriaViewModel;
+            return criteriaViewModel;
+        }
+
+        public EmailViewModel CreateEmailViewModel()
+        {
+            return emailViewModel;
         }
     }
 

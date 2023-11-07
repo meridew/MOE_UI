@@ -1,5 +1,4 @@
-﻿using MOE_UI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -7,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MOE_UI.Models
+namespace MOE_UI.ViewModels
 {
-    public class Stage : BaseViewModel
+    public class StageViewModel : BaseViewModel
     {
         private int _stage_order;
         public int StageOrder
@@ -25,24 +24,18 @@ namespace MOE_UI.Models
             set => SetProperty(ref _command, value);
         }
 
-        private ObservableCollection<Criterion> _criteria;
-        public ObservableCollection<Criterion> Criteria
+        private ObservableCollection<CriterionViewModel> _criteria;
+        public ObservableCollection<CriterionViewModel> Criteria
         {
             get => _criteria;
             set => SetProperty(ref _criteria, value);
         }
 
-        public Stage(int stageOrder, string command, ObservableCollection<Criterion> criteria)
+        public StageViewModel(int stageOrder, string command, ObservableCollection<CriterionViewModel> criteria)
         {
             StageOrder = stageOrder;
             Command = command;
-            Criteria = new ObservableCollection<Criterion>(criteria);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Criteria = new ObservableCollection<CriterionViewModel>(criteria);
         }
     }
 }

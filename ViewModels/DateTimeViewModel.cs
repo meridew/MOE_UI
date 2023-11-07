@@ -50,12 +50,12 @@ namespace MOE_UI.ViewModels
             set => SetProperty(ref _selectedEndMinute, value);
         }
 
-        public DateTime CalculatedSelectedStartDateTime
+        public DateTime SelectedStartDateTime
         {
             get => new(_selectedEndDate.Year, _selectedEndDate.Month, _selectedEndDate.Day, _selectedStartHour, _selectedStartMinute, 0);
         }
 
-        public DateTime CalculatedSelectedEndDateTime
+        public DateTime SelectedEndDateTime
         {
             get => new(_selectedEndDate.Year, _selectedEndDate.Month, _selectedEndDate.Day, _selectedEndHour, _selectedEndMinute, 0);
         }

@@ -1,5 +1,4 @@
 ﻿using MOE_UI.Helpers;
-using MOE_UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,31 +27,40 @@ namespace MOE_UI.ViewModels
 
 
 
-        public DateTime CalculatedSelectedStartDateTimeUtc
+        public DateTime SelectedStartDateTimeUtc
         {
-            get => TimeHelper.ConvertToUtc(SelectedRegion, DateTimeViewModel.CalculatedSelectedStartDateTime);
+            get => TimeHelper.ConvertToUtc(SelectedRegion, DateTimeViewModel.SelectedStartDateTime);
         }
 
-        public DateTime CalculatedSelectedEndDateTimeUtc
+        public DateTime SelectedEndDateTimeUtc
         {
-            get => TimeHelper.ConvertToUtc(SelectedRegion, DateTimeViewModel.CalculatedSelectedEndDateTime);
+            get => TimeHelper.ConvertToUtc(SelectedRegion, DateTimeViewModel.SelectedEndDateTime);
         }
 
-        public ObservableCollection<Criterion> SelectedCriteria
+        public DateTime SelectedStartDateTime
+        {
+            get => DateTimeViewModel.SelectedStartDateTime;
+        }
+        public DateTime SelectedEndDateTime
+        {
+            get => DateTimeViewModel.SelectedEndDateTime;
+        }
+
+        public ObservableCollection<CriterionViewModel> SelectedCriteria
         {
             get
             {
-                var criteria = new ObservableCollection<Criterion>
+                var criteria = new ObservableCollection<CriterionViewModel>
                 {
-                    new Criterion(CriteriaViewModel.SelectedTargetDeviceOsField, CriteriaViewModel.SelectedTargetDeviceOsOperand, CriteriaViewModel.SelectedTargetDeviceOsValue),
-                    new Criterion(CriteriaViewModel.SelectedTargetOsFamily, CriteriaViewModel.SelectedTargetOsFamilyOperand, CriteriaViewModel.SelectedTargetOsFamilyValue),
-                    new Criterion(CriteriaViewModel.SelectedTargetLastCommunicatedDays, CriteriaViewModel.SelectedTargetLastCommunicatedDaysOperand, CriteriaViewModel.SelectedTargetLastCommunicatedDaysValue)
+                    new CriterionViewModel(CriteriaViewModel.SelectedTargetDeviceOsField, CriteriaViewModel.SelectedTargetDeviceOsOperand, CriteriaViewModel.SelectedTargetDeviceOsValue),
+                    new CriterionViewModel(CriteriaViewModel.SelectedTargetOsFamily, CriteriaViewModel.SelectedTargetOsFamilyOperand, CriteriaViewModel.SelectedTargetOsFamilyValue),
+                    new CriterionViewModel(CriteriaViewModel.SelectedTargetLastCommunicatedDays, CriteriaViewModel.SelectedTargetLastCommunicatedDaysOperand, CriteriaViewModel.SelectedTargetLastCommunicatedDaysValue)
                 };
                 return criteria;
             }
         }
 
-        public virtual void ValidateProperty(string propertyName, object value)
+        public override void ValidateProperty(string propertyName, object value)
         {
             base.ValidateProperty(propertyName, value);
 

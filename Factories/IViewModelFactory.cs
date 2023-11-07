@@ -13,5 +13,7 @@ namespace MOE_UI.Factories
         RegionViewModel CreateRegionViewModel();
         DateTimeViewModel CreateDateTimeViewModel();
         CriteriaViewModel CreateCriteriaViewModel();
+
+        EmailViewModel CreateEmailViewModel();
     }
 }

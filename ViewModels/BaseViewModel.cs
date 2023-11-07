@@ -52,6 +52,7 @@ namespace MOE_UI.ViewModels
             if (EqualityComparer<T>.Default.Equals(backingField, value)) return false;
             backingField = value;
             OnPropertyChanged(propertyName);
+            ValidateProperty(propertyName, value);
             return true;
         }
 

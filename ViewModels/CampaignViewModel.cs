@@ -1,5 +1,4 @@
 ﻿using MOE_UI.Commands;
-using MOE_UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,33 +11,51 @@ namespace MOE_UI.ViewModels
 {
     public class CampaignViewModel : BaseViewModel
     { 
-        public CampaignViewModel(RegionViewModel regionViewModel)
+        public CampaignViewModel(RegionViewModel regionViewModel, EmailViewModel emailViewModel)
         {
             RegionViewModel = regionViewModel;
+            EmailViewModel = emailViewModel;
             InitCommands();
         }
 
         public RegionViewModel RegionViewModel { get; set; }
+        public EmailViewModel EmailViewModel { get; set; }
 
-        ObservableCollection<CriteriaFile> _regions = new();
-        public ObservableCollection<CriteriaFile> Regions
+        string selectedCampaignName;
+        public string SelectedCampaignName
         {
-            get => _regions;
-            set => SetProperty(ref _regions, value);
+            get => selectedCampaignName;
+            set => SetProperty(ref selectedCampaignName, value);
         }
 
-        Stage _selectedStageRow;
-        public Stage SelectedStageRow
+        ObservableCollection<CriteriaFileViewModel> regions = new();
+        public ObservableCollection<CriteriaFileViewModel> Regions
         {
-            get => _selectedStageRow;
-            set => SetProperty(ref _selectedStageRow, value);
+            get => regions;
+            set => SetProperty(ref regions, value);
         }
 
-        CriteriaFile _selectedRegionRow;
-        public CriteriaFile SelectedRegionRow
+        StageViewModel selectedStageRow;
+        public StageViewModel SelectedStageRow
         {
-            get => _selectedRegionRow;
-            set => SetProperty(ref _selectedRegionRow, value);
+            get => selectedStageRow;
+            set
+            {
+                SetProperty(ref selectedStageRow, value);
+            }
+        }
+
+        CriteriaFileViewModel selectedRegionRow;
+        public CriteriaFileViewModel SelectedRegionRow
+        {
+            get => selectedRegionRow;
+            set
+            {
+                var name = nameof(SelectedCampaignName);
+                Console.WriteLine(name);
+                SetProperty(ref selectedRegionRow, value);
+                UpdateControlsOnSelectionChange(value, RegionViewModel);
+            }
         }
 
         public ICommand AddRegionCommand { get; private set; }
@@ -50,12 +67,18 @@ namespace MOE_UI.ViewModels
 
         public void AddRegion()
         {
-            CriteriaFile criteriaFile = new(SelectedCampaignName,
+            CriteriaFileViewModel criteriaFile = new(SelectedCampaignName,
                                             RegionViewModel.SelectedRegion,
-                                            RegionViewModel.CalculatedSelectedStartDateTimeUtc,
-                                            RegionViewModel.CalculatedSelectedEndDateTimeUtc,
+                                            RegionViewModel.SelectedStartDateTime,
+                                            RegionViewModel.SelectedEndDateTime,
+                                            RegionViewModel.SelectedStartDateTimeUtc,
+                                            RegionViewModel.SelectedEndDateTimeUtc,
+                                            EmailViewModel.EmailAddresses,
+                                            EmailViewModel.EmailAddressCount,
                                             RegionViewModel.SelectedCriteria);
             Regions.Add(criteriaFile);
+
+            SelectedRegionRow = criteriaFile;
         }
 
         public void InitCommands()
@@ -63,14 +86,29 @@ namespace MOE_UI.ViewModels
             AddRegionCommand = new RelayCommand(AddRegion, CanAddRegion);
         }
 
-        string _selectedCampaignName;
-        public string SelectedCampaignName
+        private void UpdateControlsOnSelectionChange(CriteriaFileViewModel value, RegionViewModel regionViewModel)
         {
-            get => _selectedCampaignName;
-            set => SetProperty(ref _selectedCampaignName, value);
+            var dtvm = regionViewModel.DateTimeViewModel;
+            var cvm = regionViewModel.CriteriaViewModel;
+            
+            SelectedCampaignName = value.CampaignName;
+            regionViewModel.SelectedRegion = value.RegionName;
+            dtvm.SelectedStartDate = value.ScheduleStart.Date;
+            dtvm.SelectedEndDate = value.ScheduleEnd.Date;
+            dtvm.SelectedStartHour = value.ScheduleStart.Hour;
+            dtvm.SelectedEndHour = value.ScheduleEnd.Hour;
+            dtvm.SelectedStartMinute = value.ScheduleStart.Minute;
+            dtvm.SelectedEndMinute = value.ScheduleEnd.Minute;
+            cvm.SelectedTargetOsFamilyOperand = value.Stages[0].Criteria[1].Operand;
+            cvm.SelectedTargetOsFamilyValue = value.Stages[0].Criteria[1].Value;
+            cvm.SelectedTargetDeviceOsOperand = value.Stages[0].Criteria[0].Operand;
+            cvm.SelectedTargetDeviceOsValue = value.Stages[0].Criteria[0].Value;
+            cvm.SelectedTargetLastCommunicatedDaysOperand = value.Stages[0].Criteria[2].Operand;
+            cvm.SelectedTargetLastCommunicatedDaysValue = value.Stages[0].Criteria[2].Value;
+            EmailViewModel.EmailAddresses = value.EmailAddresses;
         }
 
-        public virtual void ValidateProperty(string propertyName, object value)
+        public override void ValidateProperty(string propertyName, object value)
         {
             base.ValidateProperty(propertyName, value);
 
