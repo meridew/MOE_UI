@@ -29,11 +29,11 @@ namespace MOE_UI.ViewModels
             set => SetProperty(ref selectedCampaignName, value);
         }
 
-        ObservableCollection<CriteriaFileViewModel> regions = new();
-        public ObservableCollection<CriteriaFileViewModel> Regions
+        ObservableCollection<CriteriaFileViewModel> addedRegions = new();
+        public ObservableCollection<CriteriaFileViewModel> AddedRegions
         {
-            get => regions;
-            set => SetProperty(ref regions, value);
+            get => addedRegions;
+            set => SetProperty(ref addedRegions, value);
         }
 
         StageViewModel selectedStageRow;
@@ -103,7 +103,10 @@ namespace MOE_UI.ViewModels
 
         public bool CanAddRegion()
         {
-            return IsDataComplete && RegionViewModel.IsDataComplete && RegionViewModel.DateTimeViewModel.IsDataComplete;
+            return IsDataComplete &&
+                RegionViewModel.IsDataComplete &&
+                RegionViewModel.DateTimeViewModel.IsDataComplete &&
+                !AddedRegions.Any(region => region.RegionName.Equals(RegionViewModel.SelectedRegion, StringComparison.OrdinalIgnoreCase));
         }
 
         public void AddRegion()
@@ -117,7 +120,7 @@ namespace MOE_UI.ViewModels
                                             EmailViewModel.EmailAddresses,
                                             EmailViewModel.EmailAddressCount,
                                             RegionViewModel.SelectedCriteria);
-            Regions.Add(criteriaFile);
+            AddedRegions.Add(criteriaFile);
 
             SelectedRegionRow = criteriaFile;
         }

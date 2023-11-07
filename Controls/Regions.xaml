@@ -16,7 +16,7 @@
         </Label>
 
         <DataGrid
-                ItemsSource="{Binding CampaignViewModel.Regions, Mode=TwoWay}"
+                ItemsSource="{Binding CampaignViewModel.AddedRegions}"
                 SelectedItem="{Binding CampaignViewModel.SelectedRegionRow}"
                 AutoGenerateColumns="False"                
                 Grid.Row="1" SelectedIndex="0">

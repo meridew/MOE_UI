@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MOE_UI.Controls"
-        mc:Ignorable="d">
+        DataContext="{StaticResource Locator}">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -74,7 +74,7 @@
         <ComboBox
                 Grid.Row="2"
                 Grid.Column="1"
-                ItemsSource="{Binding RegionViewModel.Regions, ValidatesOnDataErrors=True}"
+                ItemsSource="{Binding RegionViewModel.AllRegions , ValidatesOnDataErrors=True}"
                 SelectedItem="{Binding RegionViewModel.SelectedRegion}" SelectedIndex="-1">
         </ComboBox>
 

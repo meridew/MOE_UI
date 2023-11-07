@@ -25,7 +25,12 @@ namespace MOE_UI.ViewModels
         public DateTimeViewModel DateTimeViewModel { get; set; }
         public CriteriaViewModel CriteriaViewModel { get; set; }
 
-        public string[] Regions { get; } = { "AMRS", "AMRS2", "AMRS3", "APAC", "EMEA" };
+        ObservableCollection<string> allRegions = new() { "AMRS", "AMRS2", "AMRS3" };
+        public ObservableCollection<string> AllRegions
+        {
+            get => allRegions;
+            set => SetProperty(ref allRegions, value);
+        }
 
         public DateTime SelectedStartDateTimeUtc
         {

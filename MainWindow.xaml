@@ -6,7 +6,6 @@
         xmlns:controls="clr-namespace:MOE_UI.Controls"
         mc:Ignorable="d"
         DataContext="{StaticResource Locator}" d:DesignHeight="768" d:DesignWidth="1024">
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -18,11 +17,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <controls:ControlGrid/>
+        <controls:ControlGrid></controls:ControlGrid>
         <controls:EmailAddresses Grid.Row="1" Grid.RowSpan="3"/>
         <controls:Regions Grid.Column="1"/>
         <controls:Criteria Grid.Row="1" Grid.Column="1"/>
         <controls:Stages Grid.Row="2" Grid.Column="1"/>
-        <Button Grid.Row="3" Grid.Column="1" Content="Create Campaign" Command="{Binding RunCommand}"/>
+        <Button Grid.Row="3" Grid.Column="1" Content="Create Campaign"/>
     </Grid>
 </Window>
