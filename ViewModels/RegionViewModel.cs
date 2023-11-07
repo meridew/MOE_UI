@@ -25,7 +25,7 @@ namespace MOE_UI.ViewModels
         public DateTimeViewModel DateTimeViewModel { get; set; }
         public CriteriaViewModel CriteriaViewModel { get; set; }
 
-        ObservableCollection<string> allRegions = new() { "AMRS", "AMRS2", "AMRS3" };
+        ObservableCollection<string> allRegions = new() { "AMRS", "AMRS2", "AMRS3", "APAC", "EMEA" };
         public ObservableCollection<string> AllRegions
         {
             get => allRegions;
