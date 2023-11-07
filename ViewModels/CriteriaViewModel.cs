@@ -4,6 +4,9 @@ namespace MOE_UI.ViewModels
 {
     public class CriteriaViewModel : BaseViewModel
     {
+        public string[] Operands { get; } = new[] { "=", "!=", ">", "<", ">=", "<=" };
+        public string[] DeviceOsFamilies { get; } = new[] { "ios", "android" };
+        
         string _selectedTargetDeviceOsFamilyField = "target_os_family";
 
         public string SelectedTargetOsFamily

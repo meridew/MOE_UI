@@ -11,6 +11,13 @@ namespace MOE_UI.Models
 {
     public class Stage : BaseViewModel
     {
+        private int _stage_order;
+        public int StageOrder
+        {
+            get => _stage_order;
+            set => SetProperty(ref _stage_order, value);
+        }
+
         private string _command;
         public string Command
         {
@@ -25,8 +32,9 @@ namespace MOE_UI.Models
             set => SetProperty(ref _criteria, value);
         }
 
-        public Stage(string command, ObservableCollection<Criterion> criteria)
+        public Stage(int stageOrder, string command, ObservableCollection<Criterion> criteria)
         {
+            StageOrder = stageOrder;
             Command = command;
             Criteria = new ObservableCollection<Criterion>(criteria);
         }

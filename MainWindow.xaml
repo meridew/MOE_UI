@@ -160,8 +160,13 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0" ></ComboBox>
-                <ComboBox Grid.Column="1" ></ComboBox>
+                <ComboBox 
+                    ItemsSource="{Binding RegionViewModel.CriteriaViewModel.DeviceOsFamilies}"
+                    SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetOsFamilyOperand}"
+                    Grid.Column="0" ></ComboBox>
+                <ComboBox 
+                    SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetOsFamilyValue}"
+                    Grid.Column="1"></ComboBox>
             </Grid>
 
             <TextBox 
@@ -173,8 +178,14 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0" ></ComboBox>
-                <ComboBox Grid.Column="1" ></ComboBox>
+                <ComboBox 
+                    ItemsSource="{Binding RegionViewModel.CriteriaViewModel.Operands}"
+                    SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsOperand}"
+                    Grid.Column="0"></ComboBox>
+                <TextBox 
+                    Text="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsValue}"
+                    Grid.Column="1" >
+                </TextBox>
             </Grid>
 
             <TextBox 
@@ -187,8 +198,13 @@
                     <ColumnDefinition Width="*"/>
 
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0" ></ComboBox>
-                <ComboBox Grid.Column="1" ></ComboBox>
+                <ComboBox 
+                    ItemsSource="{Binding RegionViewModel.CriteriaViewModel.Operands}"
+                    SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysOperand}"
+                    Grid.Column="0"/>
+                <TextBox 
+                    Text="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsOperand}"
+                    Grid.Column="1" ></TextBox>
             </Grid>
 
 
@@ -215,6 +231,8 @@
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
 
             <Label 
@@ -223,7 +241,8 @@
             </Label>
 
             <DataGrid
-                ItemsSource="{Binding CampaignViewModel.Regions}"
+                ItemsSource="{Binding CampaignViewModel.Regions, Mode=TwoWay}"
+                SelectedItem="{Binding CampaignViewModel.SelectedRegionRow}"
                 AutoGenerateColumns="True"                
                 Grid.Row="1">
             </DataGrid>
@@ -234,18 +253,30 @@
             </Button>
 
             <Label
-                Content="Criteria"
+                Content="Stages"
                 Grid.Row="3" FontWeight="Bold">
             </Label>
 
             <DataGrid
-                ItemsSource="{Binding CampaignViewModel.SelectedRegionRow}"
+                ItemsSource="{Binding CampaignViewModel.SelectedRegionRow.Stages, Mode=TwoWay}"
+                SelectedItem="{Binding CampaignViewModel.SelectedStageRow}"
                 AutoGenerateColumns="True"
                 Grid.Row="4">
             </DataGrid>
 
+            <Label
+                Content="Criteria"
+                Grid.Row="5" FontWeight="Bold">
+            </Label>
+
+            <DataGrid
+                ItemsSource="{Binding CampaignViewModel.SelectedStageRow.Criteria}"                
+                AutoGenerateColumns="True"
+                Grid.Row="6">
+            </DataGrid>
+
             <Button
-                Grid.Row="5"
+                Grid.Row="7"
                 Content="Create Campaign">
             </Button>
         </Grid>

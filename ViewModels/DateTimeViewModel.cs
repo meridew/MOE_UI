@@ -5,8 +5,8 @@ namespace MOE_UI.ViewModels
 {
     public class DateTimeViewModel : BaseViewModel
     {
-        public int[] Hours { get; set; } = Enumerable.Range(0, 24).ToArray();
-        public int[] Minutes { get; set; } = Enumerable.Range(0, 60).ToArray();
+        public int[] Hours { get; } = Enumerable.Range(0, 24).ToArray();
+        public int[] Minutes { get; } = Enumerable.Range(0, 60).ToArray();
 
         DateTime _selectedStartDate = DateTime.Today;
         public DateTime SelectedStartDate

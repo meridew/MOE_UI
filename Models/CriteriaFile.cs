@@ -7,11 +7,11 @@ namespace MOE_UI.Models
 {
     public class CriteriaFile : BaseViewModel
     {
-        readonly List<string> _commands = new()
-        { 
-            "REQUEST_DEVICE_INFO",
-            "OS_UPDATE_INSTALL_ACTION_DOWNLOAD_ONLY",
-            "OS_UPDATE_INSTALL_ACTION_INSTALL_DOWNLOADED"
+        private readonly Dictionary<string, int> _commands = new()
+        {
+            { "REQUEST_DEVICE_INFO", 1 },
+            { "OS_UPDATE_INSTALL_ACTION_DOWNLOAD_ONLY", 2 },
+            { "OS_UPDATE_INSTALL_ACTION_INSTALL_DOWNLOADED", 3 }
         };
 
         string _campaign_name;
@@ -56,9 +56,9 @@ namespace MOE_UI.Models
             Schedule_End = scheduleEnd.ToString();
             _stages = new ObservableCollection<Stage>();
 
-            foreach (string command in _commands)
+            foreach (string command in _commands.Keys)
             {
-                _stages.Add(new Stage(command, criteria));
+                _stages.Add(new Stage(_commands[command], command, criteria));
             }
         }
     }

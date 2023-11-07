@@ -27,6 +27,13 @@ namespace MOE_UI.ViewModels
             set => SetProperty(ref _regions, value);
         }
 
+        Stage _selectedStageRow;
+        public Stage SelectedStageRow
+        {
+            get => _selectedStageRow;
+            set => SetProperty(ref _selectedStageRow, value);
+        }
+
         CriteriaFile _selectedRegionRow;
         public CriteriaFile SelectedRegionRow
         {
