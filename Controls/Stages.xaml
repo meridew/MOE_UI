@@ -12,7 +12,7 @@
         </Grid.RowDefinitions>
         <Label
             Grid.Row="0"
-            Content="Stages"
+            Content="Region Stages"
             FontWeight="Bold">
         </Label>
 
@@ -20,7 +20,7 @@
             Grid.Row="1"
             ItemsSource="{Binding CampaignViewModel.SelectedRegionRow.Stages, Mode=TwoWay}"
             SelectedItem="{Binding CampaignViewModel.SelectedStageRow}"
-            AutoGenerateColumns="False" SelectedIndex="0">
+            AutoGenerateColumns="False" SelectedIndex="0" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Stage Order" Binding="{Binding StageOrder}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Command" Binding="{Binding Command}"></DataGridTextColumn>

@@ -12,14 +12,14 @@
         </Grid.RowDefinitions>
         <Label
             Grid.Row="0"    
-            Content="Criteria"
+            Content="Stage Criteria"
             FontWeight="Bold">
         </Label>
 
         <DataGrid
             Grid.Row="1"    
             ItemsSource="{Binding CampaignViewModel.SelectedStageRow.Criteria}"                
-                AutoGenerateColumns="False">
+                AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Field" Binding="{Binding Field}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Operand" Binding="{Binding Operand}"></DataGridTextColumn>

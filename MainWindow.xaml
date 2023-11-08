@@ -6,6 +6,30 @@
         xmlns:controls="clr-namespace:MOE_UI.Controls"
         mc:Ignorable="d"
         DataContext="{StaticResource Locator}" d:DesignHeight="768" d:DesignWidth="1024">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Width" Value="25"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0,0,0,0.3"/>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -15,13 +39,21 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <controls:ControlGrid></controls:ControlGrid>
-        <controls:EmailAddresses Grid.Row="1" Grid.RowSpan="3"/>
-        <controls:Regions Grid.Column="1"/>
-        <controls:Criteria Grid.Row="1" Grid.Column="1"/>
-        <controls:Stages Grid.Row="2" Grid.Column="1"/>
-        <Button Grid.Row="3" Grid.Column="1" Content="Create Campaign"/>
+        <controls:ControlGrid Grid.Row="0" Grid.Column="0"></controls:ControlGrid>
+        <controls:EmailAddresses Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"/>
+        <Grid
+            Grid.Column="1" Grid.RowSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <controls:Regions Grid.Row="0" Grid.Column="1"/>
+            <controls:Stages Grid.Row="1" Grid.Column="1"/>
+            <controls:Criteria Grid.Row="2" Grid.Column="1"/>
+        </Grid>
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Height="30" Width="Auto" Content="Create Campaign"/>
     </Grid>
 </Window>

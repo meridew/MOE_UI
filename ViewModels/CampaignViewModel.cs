@@ -52,9 +52,8 @@ namespace MOE_UI.ViewModels
             get => selectedRegionRow;
             set
             {
-                var name = nameof(SelectedCampaignName);
-                Console.WriteLine(name);
                 SetProperty(ref selectedRegionRow, value);
+                SelectedStageRow = value.Stages[0];
                 UpdateControlsOnSelectionChange(value, RegionViewModel);
             }
         }
@@ -66,7 +65,8 @@ namespace MOE_UI.ViewModels
         {
             if(SelectedRegionRow != null)
             {
-                return SelectedRegionRow.RegionName != RegionViewModel.SelectedRegion ||
+                return !AddedRegions.Any(region => region.RegionName.Equals(RegionViewModel.SelectedRegion, StringComparison.OrdinalIgnoreCase)) &&
+                SelectedRegionRow.RegionName != RegionViewModel.SelectedRegion ||
                 SelectedRegionRow.ScheduleStart != RegionViewModel.SelectedStartDateTime ||
                 SelectedRegionRow.ScheduleEnd != RegionViewModel.SelectedEndDateTime ||
                 SelectedRegionRow.ScheduleStartUTC != RegionViewModel.SelectedStartDateTimeUtc ||
