@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MOE_UI.Controls"
-        DataContext="{StaticResource Locator}">
+        DataContext="{StaticResource Locator}"
+        UseLayoutRounding="True"
+             RenderOptions.BitmapScalingMode="NearestNeighbor">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -28,25 +30,45 @@
             Command="{Binding CampaignViewModel.AddRegionCommand, ValidatesOnDataErrors=True}"
             Grid.Row="1"
             Grid.Column="2"
-            Grid.RowSpan="3"
-            Content="+">
+            Grid.RowSpan="3">
         </Button>
+        <Image
+            Grid.Row="1"
+            Grid.Column="2"
+            Grid.RowSpan="3"
+            Source="Img\plus.png"
+            Height="20">
+        </Image>
         
         <Button
-            Content="^"
             Command="{Binding CampaignViewModel.UpdateRegionCommand, ValidatesOnDataErrors=True}"
             Grid.Row="4"
             Grid.RowSpan="2"
             Grid.Column="2">
         </Button>
         
+        <Image
+            Grid.Row="4"
+            Grid.RowSpan="2"
+            Grid.Column="2"
+            Source="Img\refresh.png"
+            Height="20">
+        </Image>
+
         <Button
             Grid.Row="6"
             Grid.Column="2"
             Grid.RowSpan="4"
-            Command="{Binding CampaignViewModel.RemoveRegionCommand, ValidatesOnDataErrors=True}"
-            Content="-">
+            Command="{Binding CampaignViewModel.RemoveRegionCommand, ValidatesOnDataErrors=True}">
         </Button>
+
+        <Image
+            Grid.Row="6"
+            Grid.Column="2"
+            Grid.RowSpan="4"
+            Source="Img\minus.png"
+            Height="20">
+        </Image>
         
         <Label 
             Content="Campaign Region Settings"

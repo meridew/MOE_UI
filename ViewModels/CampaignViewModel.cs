@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 
 namespace MOE_UI.ViewModels
 {
@@ -53,13 +54,29 @@ namespace MOE_UI.ViewModels
             set
             {
                 SetProperty(ref selectedRegionRow, value);
-                SelectedStageRow = value.Stages[0];
+                if (SelectedRegionRow != null)
+                {
+                    SelectedStageRow = value.Stages[0];
+                }
+
                 UpdateControlsOnSelectionChange(value, RegionViewModel);
             }
         }
 
         public ICommand AddRegionCommand { get; private set; }
         public ICommand UpdateRegionCommand { get; private set; }
+
+        public ICommand RemoveRegionCommand { get; private set; }
+
+        void RemoveRegion()
+        {
+            AddedRegions.Remove(SelectedRegionRow);
+        }
+
+        bool CanRemoveRegion()
+        {
+            return SelectedRegionRow != null;
+        }
 
         public bool CanUpdateRegion()
         {
@@ -130,28 +147,32 @@ namespace MOE_UI.ViewModels
         {
             AddRegionCommand = new RelayCommand(AddRegion, CanAddRegion);
             UpdateRegionCommand = new RelayCommand(UpdateRegion, CanUpdateRegion);
+            RemoveRegionCommand = new RelayCommand(RemoveRegion, CanRemoveRegion);
         }
 
         private void UpdateControlsOnSelectionChange(CriteriaFileViewModel value, RegionViewModel regionViewModel)
         {
-            var dtvm = regionViewModel.DateTimeViewModel;
-            var cvm = regionViewModel.CriteriaViewModel;
-            
-            SelectedCampaignName = value.CampaignName;
-            regionViewModel.SelectedRegion = value.RegionName;
-            dtvm.SelectedStartDate = value.ScheduleStart.Date;
-            dtvm.SelectedEndDate = value.ScheduleEnd.Date;
-            dtvm.SelectedStartHour = value.ScheduleStart.Hour;
-            dtvm.SelectedEndHour = value.ScheduleEnd.Hour;
-            dtvm.SelectedStartMinute = value.ScheduleStart.Minute;
-            dtvm.SelectedEndMinute = value.ScheduleEnd.Minute;
-            cvm.SelectedTargetDeviceOsFamilyOperand = value.Stages[0].Criteria[1].Operand;
-            cvm.SelectedTargetDeviceOsFamilyValue = value.Stages[0].Criteria[1].Value;
-            cvm.SelectedTargetDeviceOsVersionOperand = value.Stages[0].Criteria[0].Operand;
-            cvm.SelectedTargetDeviceOsVersionValue = value.Stages[0].Criteria[0].Value;
-            cvm.SelectedTargetLastCommunicatedDaysOperand = value.Stages[0].Criteria[2].Operand;
-            cvm.SelectedTargetLastCommunicatedDaysValue = value.Stages[0].Criteria[2].Value;
-            EmailViewModel.EmailAddresses = value.EmailAddresses;
+            if(value != null)
+            {
+                var dtvm = regionViewModel.DateTimeViewModel;
+                var cvm = regionViewModel.CriteriaViewModel;
+
+                SelectedCampaignName = value.CampaignName;
+                regionViewModel.SelectedRegion = value.RegionName;
+                dtvm.SelectedStartDate = value.ScheduleStart.Date;
+                dtvm.SelectedEndDate = value.ScheduleEnd.Date;
+                dtvm.SelectedStartHour = value.ScheduleStart.Hour;
+                dtvm.SelectedEndHour = value.ScheduleEnd.Hour;
+                dtvm.SelectedStartMinute = value.ScheduleStart.Minute;
+                dtvm.SelectedEndMinute = value.ScheduleEnd.Minute;
+                cvm.SelectedTargetDeviceOsFamilyOperand = value.Stages[0].Criteria[1].Operand;
+                cvm.SelectedTargetDeviceOsFamilyValue = value.Stages[0].Criteria[1].Value;
+                cvm.SelectedTargetDeviceOsVersionOperand = value.Stages[0].Criteria[0].Operand;
+                cvm.SelectedTargetDeviceOsVersionValue = value.Stages[0].Criteria[0].Value;
+                cvm.SelectedTargetLastCommunicatedDaysOperand = value.Stages[0].Criteria[2].Operand;
+                cvm.SelectedTargetLastCommunicatedDaysValue = value.Stages[0].Criteria[2].Value;
+                EmailViewModel.EmailAddresses = value.EmailAddresses;
+            }
         }
 
         public override void ValidateProperty(string propertyName, object value)

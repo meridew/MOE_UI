@@ -7,4 +7,22 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Controls\Img\minus.png" />
+    <None Remove="Controls\Img\plus.png" />
+    <None Remove="Controls\Img\refresh.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Controls\Img\minus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Controls\Img\plus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Controls\Img\refresh.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
