@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:MOE_UI.Controls"
         DataContext="{StaticResource Locator}"
         UseLayoutRounding="True"
-             RenderOptions.BitmapScalingMode="NearestNeighbor">
+        RenderOptions.BitmapScalingMode="NearestNeighbor"
+             Background="White">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -27,49 +28,32 @@
         </Grid.ColumnDefinitions>
 
         <Button
+            Content="➕"
+            
+            Background="{Binding CampaignViewModel.AddRegionIndicatorColor}"
             Command="{Binding CampaignViewModel.AddRegionCommand, ValidatesOnDataErrors=True}"
             Grid.Row="1"
             Grid.Column="2"
-            Grid.RowSpan="3">
-        </Button>
-        <Image
-            Grid.Row="1"
-            Grid.Column="2"
-            Grid.RowSpan="3"
-            Source="Img\plus.png"
-            Height="20">
-        </Image>
-        
+            Grid.RowSpan="3"/>
+
         <Button
+            Content="➤"
+            Background="{Binding CampaignViewModel.UpdateRegionIndicatorColor}"
             Command="{Binding CampaignViewModel.UpdateRegionCommand, ValidatesOnDataErrors=True}"
             Grid.Row="4"
             Grid.RowSpan="2"
             Grid.Column="2">
         </Button>
         
-        <Image
-            Grid.Row="4"
-            Grid.RowSpan="2"
-            Grid.Column="2"
-            Source="Img\refresh.png"
-            Height="20">
-        </Image>
 
         <Button
+            Content="➖"
             Grid.Row="6"
             Grid.Column="2"
             Grid.RowSpan="4"
             Command="{Binding CampaignViewModel.RemoveRegionCommand, ValidatesOnDataErrors=True}">
         </Button>
 
-        <Image
-            Grid.Row="6"
-            Grid.Column="2"
-            Grid.RowSpan="4"
-            Source="Img\minus.png"
-            Height="20">
-        </Image>
-        
         <Label 
             Content="Campaign Region Settings"
             Grid.Row="0" 

@@ -1,4 +1,5 @@
 ﻿using MOE_UI.Commands;
+using MOE_UI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,12 +17,28 @@ namespace MOE_UI.ViewModels
         {
             RegionViewModel = regionViewModel;
             EmailViewModel = emailViewModel;
+            AddRegionIndicatorColor = "Transparent";
+            UpdateRegionIndicatorColor = "Transparent";
             ValidateProperty(nameof(SelectedCampaignName), SelectedCampaignName);
             InitCommands();
         }
 
         public RegionViewModel RegionViewModel { get; set; }
         public EmailViewModel EmailViewModel { get; set; }
+
+        string addRegionIncidactorColor;
+        public string AddRegionIndicatorColor
+        {
+            get => addRegionIncidactorColor;
+            set => SetProperty(ref addRegionIncidactorColor, value);
+        }
+
+        string updateRegionIndicatorColor;
+        public string UpdateRegionIndicatorColor
+        {
+            get => updateRegionIndicatorColor;
+            set => SetProperty(ref updateRegionIndicatorColor, value);
+        }
 
         string selectedCampaignName;
         public string SelectedCampaignName
@@ -65,8 +82,18 @@ namespace MOE_UI.ViewModels
 
         public ICommand AddRegionCommand { get; private set; }
         public ICommand UpdateRegionCommand { get; private set; }
-
         public ICommand RemoveRegionCommand { get; private set; }
+        public ICommand ExportCampaignCommand { get; private set; }
+
+        bool CanExportCampaign()
+        {
+            return AddedRegions.Count > 0;
+        }
+
+        void ExportCampaign()
+        {
+            FileHelper.ExportCampaign(this);
+        }
 
         void RemoveRegion()
         {
@@ -78,25 +105,57 @@ namespace MOE_UI.ViewModels
             return SelectedRegionRow != null;
         }
 
+        void SetIndicatorColor(string property, bool enabled)
+        {
+            switch (property)
+            {
+                case nameof(AddRegionIndicatorColor):
+                    AddRegionIndicatorColor = enabled ? "LightGreen" : "Transparent";
+                    break;
+                case nameof(UpdateRegionIndicatorColor):
+                    UpdateRegionIndicatorColor = enabled ? "LightBlue" : "Transparent";
+                    break;
+            }
+        }
+
         public bool CanUpdateRegion()
         {
-            if(SelectedRegionRow != null)
+            // Check if there is a selected region.
+            if (SelectedRegionRow == null)
             {
-                return !AddedRegions.Any(region => region.RegionName.Equals(RegionViewModel.SelectedRegion, StringComparison.OrdinalIgnoreCase)) &&
-                SelectedRegionRow.RegionName != RegionViewModel.SelectedRegion ||
-                SelectedRegionRow.ScheduleStart != RegionViewModel.SelectedStartDateTime ||
-                SelectedRegionRow.ScheduleEnd != RegionViewModel.SelectedEndDateTime ||
-                SelectedRegionRow.ScheduleStartUTC != RegionViewModel.SelectedStartDateTimeUtc ||
-                SelectedRegionRow.ScheduleEndUTC != RegionViewModel.SelectedEndDateTimeUtc ||
-                SelectedRegionRow.EmailAddresses != EmailViewModel.EmailAddresses ||
-                SelectedRegionRow.EmailAddressCount != EmailViewModel.EmailAddressCount ||
-                SelectedRegionRow.Stages[0].Criteria[1].Operand != RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyOperand ||
-                SelectedRegionRow.Stages[0].Criteria[1].Value != RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyValue ||
-                SelectedRegionRow.Stages[0].Criteria[0].Operand != RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionOperand ||
-                SelectedRegionRow.Stages[0].Criteria[0].Value != RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionValue ||
-                SelectedRegionRow.Stages[0].Criteria[2].Operand != RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysOperand ||
-                SelectedRegionRow.Stages[0].Criteria[2].Value != RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysValue;
+                SetIndicatorColor(nameof(UpdateRegionIndicatorColor), false);
+                return false;
             }
+
+            // Check if the region name is unique in AddedRegions, ignoring the selected region row.
+            bool isRegionNameUniqueOrSameAsSelected = !AddedRegions.Any(region =>
+                region != SelectedRegionRow &&
+                region.RegionName.Equals(RegionViewModel.SelectedRegion, StringComparison.OrdinalIgnoreCase));
+
+            // Check if any property of the SelectedRegionRow differs from the view model.
+            bool isRegionChanged = SelectedRegionRow.RegionName != RegionViewModel.SelectedRegion ||
+                                   SelectedRegionRow.ScheduleStart != RegionViewModel.SelectedStartDateTime ||
+                                   SelectedRegionRow.ScheduleEnd != RegionViewModel.SelectedEndDateTime ||
+                                   SelectedRegionRow.ScheduleStartUTC != RegionViewModel.SelectedStartDateTimeUtc ||
+                                   SelectedRegionRow.ScheduleEndUTC != RegionViewModel.SelectedEndDateTimeUtc ||
+                                   SelectedRegionRow.EmailAddresses != EmailViewModel.EmailAddresses ||
+                                   SelectedRegionRow.EmailAddressCount != EmailViewModel.EmailAddressCount ||
+                                   SelectedRegionRow.Stages[0].Criteria[1].Operand != RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyOperand ||
+                                   SelectedRegionRow.Stages[0].Criteria[1].Value != RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyValue ||
+                                   SelectedRegionRow.Stages[0].Criteria[0].Operand != RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionOperand ||
+                                   SelectedRegionRow.Stages[0].Criteria[0].Value != RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionValue ||
+                                   SelectedRegionRow.Stages[0].Criteria[2].Operand != RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysOperand ||
+                                   SelectedRegionRow.Stages[0].Criteria[2].Value != RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysValue;
+
+            // If the region name is unique (or the same as the selected one) and any other property has changed.
+            if (isRegionNameUniqueOrSameAsSelected && isRegionChanged)
+            {
+                SetIndicatorColor(nameof(UpdateRegionIndicatorColor), true);
+                return true;
+            }
+
+            // If none of the conditions are met, indicate no update is possible and return false.
+            SetIndicatorColor(nameof(UpdateRegionIndicatorColor), false);
             return false;
         }
 
@@ -120,11 +179,20 @@ namespace MOE_UI.ViewModels
 
         public bool CanAddRegion()
         {
-            return IsDataComplete &&
+            if(IsDataComplete &&
                 RegionViewModel.IsDataComplete &&
                 RegionViewModel.DateTimeViewModel.IsDataComplete &&
                 RegionViewModel.CriteriaViewModel.IsDataComplete &&
-                !AddedRegions.Any(region => region.RegionName.Equals(RegionViewModel.SelectedRegion, StringComparison.OrdinalIgnoreCase));
+                !AddedRegions.Any(region => region.RegionName.Equals(RegionViewModel.SelectedRegion, StringComparison.OrdinalIgnoreCase)))
+            {
+                SetIndicatorColor(nameof(AddRegionIndicatorColor), true);
+                
+                return true;
+            }
+
+            SetIndicatorColor(nameof(AddRegionIndicatorColor), false);
+
+            return false;
         }
 
         public void AddRegion()
@@ -148,9 +216,10 @@ namespace MOE_UI.ViewModels
             AddRegionCommand = new RelayCommand(AddRegion, CanAddRegion);
             UpdateRegionCommand = new RelayCommand(UpdateRegion, CanUpdateRegion);
             RemoveRegionCommand = new RelayCommand(RemoveRegion, CanRemoveRegion);
+            ExportCampaignCommand = new RelayCommand(ExportCampaign, CanExportCampaign);
         }
 
-        private void UpdateControlsOnSelectionChange(CriteriaFileViewModel value, RegionViewModel regionViewModel)
+        void UpdateControlsOnSelectionChange(CriteriaFileViewModel value, RegionViewModel regionViewModel)
         {
             if(value != null)
             {

@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:MOE_UI.Controls"
         mc:Ignorable="d"
-        DataContext="{StaticResource Locator}" d:DesignHeight="768" d:DesignWidth="1024">
+        Height="720"
+        Width="1280"
+        DataContext="{StaticResource Locator}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -27,7 +29,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <controls:ControlGrid Grid.Row="0" Grid.Column="0"></controls:ControlGrid>
-        <controls:EmailAddresses Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"/>
+        <controls:EmailAddresses Grid.Row="1" Grid.Column="0" Grid.RowSpan="3"/>
         <Grid
             Grid.Column="1" Grid.RowSpan="3">
             <Grid.RowDefinitions>
@@ -39,6 +41,11 @@
             <controls:Stages Grid.Row="1" Grid.Column="1"/>
             <controls:Criteria Grid.Row="2" Grid.Column="1"/>
         </Grid>
-        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Height="30" Width="Auto" Content="Create Campaign"/>
+        <Button 
+            Grid.Row="3" 
+            Grid.Column="1" 
+            Height="30" 
+            Content="Create Campaign"
+            Command="{Binding CampaignViewModel.ExportCampaignCommand}"/>
     </Grid>
 </Window>

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace MOE_UI.ViewModels
 {
@@ -17,6 +19,8 @@ namespace MOE_UI.ViewModels
 
 
         private readonly Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
+
+        [JsonIgnore]
         public bool HasErrors => _errors.Any();
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
@@ -58,6 +62,7 @@ namespace MOE_UI.ViewModels
 
         public virtual void ValidateProperty(string propertyName, object value) { }
 
+        [JsonIgnore]
         public bool IsDataComplete => !HasErrors;
 
         protected virtual void OnErrorsChanged(string propertyName)

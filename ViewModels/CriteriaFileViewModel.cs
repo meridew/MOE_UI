@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 namespace MOE_UI.ViewModels
 {
@@ -8,70 +10,69 @@ namespace MOE_UI.ViewModels
     {
         private readonly Dictionary<string, int> commands = new()
         {
-            { "REQUESTDEVICEINFO", 1 },
-            { "OSUPDATEINSTALLACTIONDOWNLOADONLY", 2 },
-            { "OSUPDATEINSTALLACTIONINSTALLDOWNLOADED", 3 }
+            { "REQUEST_DEVICE_INFO", 1 },
+            { "OS_UPDATE_INSTALL_ACTION_DOWNLOAD_ONLY", 2 },
+            { "OS_UPDATE_INSTALL_ACTION_INSTALL_DOWNLOADED", 3 }
         };
 
-        string campaignname;
+        string campaignName;
         public string CampaignName
         {
-            get => campaignname;
-            set => SetProperty(ref campaignname, value);
+            get => campaignName;
+            set => SetProperty(ref campaignName, value);
         }
 
-        string regionname;
+        string regionName;
         public string RegionName
         {
-            get => regionname;
-            set => SetProperty(ref regionname, value);
+            get => regionName;
+            set => SetProperty(ref regionName, value);
         }
 
-        DateTime schedulestart;
+        DateTime scheduleStart;
         public DateTime ScheduleStart
         {
-            get => schedulestart;
-            set => SetProperty(ref schedulestart, value);
+            get => scheduleStart;
+            set => SetProperty(ref scheduleStart, value);
         }
 
-        DateTime scheduleend;
+        DateTime scheduleEnd;
         public DateTime ScheduleEnd
         {
-            get => scheduleend;
-            set => SetProperty(ref scheduleend, value);
+            get => scheduleEnd;
+            set => SetProperty(ref scheduleEnd, value);
         }
 
-        DateTime schedulestartutc;
+        DateTime scheduleStartUtc;
         public DateTime ScheduleStartUTC
         {
-            get => schedulestartutc;
-            set => SetProperty(ref schedulestartutc, value);
+            get => scheduleStartUtc;
+            set => SetProperty(ref scheduleStartUtc, value);
         }
 
-        DateTime scheduleendutc;
+        DateTime scheduleEndUtc;
         public DateTime ScheduleEndUTC
         {
-            get => scheduleendutc;
-            set => SetProperty(ref scheduleendutc, value);
+            get => scheduleEndUtc;
+            set => SetProperty(ref scheduleEndUtc, value);
         }
 
-        string emailaddresses;
+        string emailAddresses;
         public string EmailAddresses
         {
-            get => emailaddresses;
+            get => emailAddresses;
             set
             {
-                SetProperty(ref emailaddresses, value);
+                SetProperty(ref emailAddresses, value);
             }
         }
 
-        int emailaddresscount;
+        int emailAddressCount;
         public int EmailAddressCount
         {
-            get => emailaddresscount;
-            set => SetProperty(ref emailaddresscount, value);
+            get => emailAddressCount;
+            set => SetProperty(ref emailAddressCount, value);
         }
-
 
         private ObservableCollection<StageViewModel> stages;
         public ObservableCollection<StageViewModel> Stages
@@ -79,6 +80,12 @@ namespace MOE_UI.ViewModels
             get => stages;
             set => SetProperty(ref stages, value);
         }
+
+        public string ToJson()
+        {
+            return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+        }
+
         public CriteriaFileViewModel(string campaignName, string regionName, DateTime scheduleStart, DateTime scheduleEnd, DateTime scheduleStartUtc, DateTime scheduleEndUtc, string emailAddresses, int emailAddressCount, ObservableCollection<CriterionViewModel> criteria)
         {
             CampaignName = campaignName;
