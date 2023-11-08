@@ -8,11 +8,7 @@ namespace MOE_UI.ViewModels
     {
         public CriteriaViewModel()
         {
-            ValidateProperty(nameof(SelectedTargetDeviceOsFamilyOperand), SelectedTargetDeviceOsFamilyOperand);
-            ValidateProperty(nameof(SelectedTargetDeviceOsFamilyValue), SelectedTargetDeviceOsFamilyValue);
-            ValidateProperty(nameof(SelectedTargetDeviceOsVersionOperand), SelectedTargetDeviceOsVersionOperand);
             ValidateProperty(nameof(SelectedTargetDeviceOsVersionValue), SelectedTargetDeviceOsVersionValue);
-            ValidateProperty(nameof(SelectedTargetLastCommunicatedDaysOperand), SelectedTargetLastCommunicatedDaysOperand);
             ValidateProperty(nameof(SelectedTargetLastCommunicatedDaysValue), SelectedTargetLastCommunicatedDaysValue);
         }
         
@@ -106,24 +102,6 @@ namespace MOE_UI.ViewModels
 
             switch (propertyName)
             {
-                case nameof(SelectedTargetDeviceOsFamilyOperand):
-                    if (string.IsNullOrEmpty(SelectedTargetDeviceOsFamilyOperand))
-                    {
-                        AddError(propertyName, "Operand is required.");
-                    }
-                    break;
-                case nameof(SelectedTargetDeviceOsFamilyValue):
-                    if (string.IsNullOrEmpty(SelectedTargetDeviceOsFamilyValue))
-                    {
-                        AddError(propertyName, "Value is required.");
-                    }
-                    break;
-                case nameof(SelectedTargetDeviceOsVersionOperand):
-                    if (string.IsNullOrEmpty(SelectedTargetDeviceOsVersionOperand))
-                    {
-                        AddError(propertyName, "Operand is required.");
-                    }
-                    break;
                 case nameof(SelectedTargetDeviceOsVersionValue):
                     if (string.IsNullOrEmpty(SelectedTargetDeviceOsVersionValue))
                     {
@@ -132,12 +110,6 @@ namespace MOE_UI.ViewModels
                     else if(!Regex.IsMatch(SelectedTargetDeviceOsVersionValue, @"^\d+(\.\d+)?(\.[^\s.]+)?(\.[^\s.]+)?$"))
                     {
                         AddError(propertyName, "Value invalid format");
-                    }
-                    break;
-                case nameof(SelectedTargetLastCommunicatedDaysOperand):
-                    if (string.IsNullOrEmpty(SelectedTargetLastCommunicatedDaysOperand))
-                    {
-                        AddError(propertyName, "Operand is required.");
                     }
                     break;
                 case nameof(SelectedTargetLastCommunicatedDaysValue):
