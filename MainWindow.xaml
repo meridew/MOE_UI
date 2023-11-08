@@ -7,28 +7,13 @@
         mc:Ignorable="d"
         DataContext="{StaticResource Locator}" d:DesignHeight="768" d:DesignWidth="1024">
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Width" Value="25"/>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="10"/>
-        </Style>
-        <Style TargetType="ComboBox">
-            <Setter Property="Margin" Value="10"/>
-        </Style>
-        <Style TargetType="Label">
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value="0,0,0,0.3"/>
-        </Style>
-        <Style TargetType="DatePicker">
-            <Setter Property="Margin" Value="10"/>
-        </Style>
-        <Style TargetType="DataGrid">
-            <Setter Property="Margin" Value="10"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Reference to your external Resource Dictionary -->
+                <ResourceDictionary Source="\controls\styles\styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Other resources can be defined here -->
+        </ResourceDictionary>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>

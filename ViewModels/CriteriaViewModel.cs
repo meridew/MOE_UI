@@ -8,6 +8,11 @@ namespace MOE_UI.ViewModels
     {
         public CriteriaViewModel()
         {
+            SelectedTargetDeviceOsFamilyOperand = Operands[0];
+            SelectedTargetDeviceOsVersionOperand = Operands[0];
+            SelectedTargetLastCommunicatedDaysOperand = Operands[2];
+            SelectedTargetDeviceOsFamilyValue = DeviceOsFamilies[0];
+            
             ValidateProperty(nameof(SelectedTargetDeviceOsVersionValue), SelectedTargetDeviceOsVersionValue);
             ValidateProperty(nameof(SelectedTargetLastCommunicatedDaysValue), SelectedTargetLastCommunicatedDaysValue);
         }
@@ -113,9 +118,16 @@ namespace MOE_UI.ViewModels
                     }
                     break;
                 case nameof(SelectedTargetLastCommunicatedDaysValue):
-                    if (string.IsNullOrEmpty(SelectedTargetLastCommunicatedDaysValue))
+                    if(int.TryParse(SelectedTargetLastCommunicatedDaysValue, out int days))
                     {
-                        AddError(propertyName, "Value is required.");
+                        if(days < 0)
+                        {
+                            AddError(propertyName, "Value must be greater than or equal to 0.");
+                        }
+                    }
+                    else
+                    {
+                        AddError(propertyName, "Value must be an integer.");
                     }
                     break;
             }

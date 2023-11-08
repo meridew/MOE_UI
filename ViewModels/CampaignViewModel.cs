@@ -106,6 +106,7 @@ namespace MOE_UI.ViewModels
             return IsDataComplete &&
                 RegionViewModel.IsDataComplete &&
                 RegionViewModel.DateTimeViewModel.IsDataComplete &&
+                RegionViewModel.CriteriaViewModel.IsDataComplete &&
                 !AddedRegions.Any(region => region.RegionName.Equals(RegionViewModel.SelectedRegion, StringComparison.OrdinalIgnoreCase));
         }
 
@@ -165,6 +166,17 @@ namespace MOE_UI.ViewModels
                     if (string.IsNullOrEmpty(SelectedCampaignName))
                     {
                         AddError(propertyName, "Campaign name is required.");
+                    }
+                    break;
+                
+                case nameof(RegionViewModel.SelectedRegion):
+                    if (string.IsNullOrEmpty(RegionViewModel.SelectedRegion))
+                    {
+                        AddError(propertyName, "Region is required.");
+                    }
+                    else if (AddedRegions.Any(region => region.RegionName.Equals(RegionViewModel.SelectedRegion, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        AddError(propertyName, "Region already added.");
                     }
                     break;
             }

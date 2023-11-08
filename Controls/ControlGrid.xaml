@@ -25,7 +25,7 @@
         </Grid.ColumnDefinitions>
 
         <Button
-            Command="{Binding CampaignViewModel.AddRegionCommand}"
+            Command="{Binding CampaignViewModel.AddRegionCommand, ValidatesOnDataErrors=True}"
             Grid.Row="1"
             Grid.Column="2"
             Grid.RowSpan="3"
@@ -34,7 +34,7 @@
         
         <Button
             Content="^"
-            Command="{Binding CampaignViewModel.UpdateRegionCommand}"
+            Command="{Binding CampaignViewModel.UpdateRegionCommand, ValidatesOnDataErrors=True}"
             Grid.Row="4"
             Grid.RowSpan="2"
             Grid.Column="2">
@@ -44,7 +44,7 @@
             Grid.Row="6"
             Grid.Column="2"
             Grid.RowSpan="4"
-            Command="{Binding CampaignViewModel.RemoveRegionCommand}"
+            Command="{Binding CampaignViewModel.RemoveRegionCommand, ValidatesOnDataErrors=True}"
             Content="-">
         </Button>
         
@@ -127,13 +127,11 @@
             <ComboBox 
                 ItemsSource="{Binding RegionViewModel.CriteriaViewModel.Operands}"
                 SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyOperand, ValidatesOnDataErrors=True}"
-                Grid.Column="0" 
-                SelectedIndex="0"/>
+                Grid.Column="0"/>
             <ComboBox 
                 ItemsSource="{Binding RegionViewModel.CriteriaViewModel.DeviceOsFamilies}"
                 SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyValue, ValidatesOnDataErrors=True}"
-                Grid.Column="1" 
-                SelectedIndex="0"/>
+                Grid.Column="1"/>
         </Grid>
 
         <Label Grid.Row="7" Content="OS Version"/>
@@ -146,8 +144,7 @@
             <ComboBox 
                 ItemsSource="{Binding RegionViewModel.CriteriaViewModel.Operands}"
                 SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionOperand, ValidatesOnDataErrors=True}"
-                Grid.Column="0" 
-                SelectedIndex="0"/>
+                Grid.Column="0"/>
             <TextBox
                 Text="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionValue, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
                 Grid.Column="2"/>
@@ -164,10 +161,10 @@
             <ComboBox 
                 ItemsSource="{Binding RegionViewModel.CriteriaViewModel.Operands}"
                 SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysOperand}"
-                Grid.Column="0" SelectedIndex="1"/>
+                Grid.Column="0"/>
             <TextBox 
                 Text="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysValue, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                Grid.Column="1" ></TextBox>
+                Grid.Column="1"/>
         </Grid>
     </Grid>
 </UserControl>
