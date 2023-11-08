@@ -17,7 +17,7 @@ namespace MOE_UI.Helpers
                     timeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
                     break;
                 case "APAC":
-                    timeZone = TimeZoneInfo.FindSystemTimeZoneById("China Standard Time");
+                    timeZone = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
                     break;
                 case "EMEA":
                     timeZone = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");

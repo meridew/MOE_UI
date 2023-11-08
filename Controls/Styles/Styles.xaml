@@ -6,11 +6,11 @@
                 <ControlTemplate>
                     <DockPanel LastChildFill="True">
                         <!-- The border is part of the error template and will appear around the adorned control -->
-                        <Border BorderBrush="Red" BorderThickness="1">
+                        <Border BorderBrush="#FF81A8FF" BorderThickness="2">
                             <AdornedElementPlaceholder Name="customAdorner"/>
                         </Border>
                         <!-- The error icon is positioned outside of the border -->
-                        <Border Background="Red" DockPanel.Dock="Right" Margin="5" Width="8" Height="15"
+                        <Border Background="#FF81A8FF" DockPanel.Dock="Right" Margin="5" Width="8" Height="15"
                             ToolTip="{Binding ElementName=customAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
                             <TextBlock Text="!" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
                         </Border>

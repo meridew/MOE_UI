@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MOE_UI.Controls"
         DataContext="{StaticResource Locator}">
-    <Grid Background="White">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -78,7 +78,8 @@
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
             <DatePicker
-                    SelectedDate="{Binding RegionViewModel.DateTimeViewModel.SelectedStartDate, ValidatesOnDataErrors=True}"/>
+                SelectedDate="{Binding RegionViewModel.DateTimeViewModel.SelectedStartDate, ValidatesOnDataErrors=True}"
+                DisplayDateStart="{Binding RegionViewModel.DateTimeViewModel.Today}"/>
             <ComboBox 
                 ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Hours}"
                 SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedStartHour, ValidatesOnDataErrors=True}"
@@ -97,7 +98,8 @@
 
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
             <DatePicker
-                    SelectedDate="{Binding RegionViewModel.DateTimeViewModel.SelectedEndDate, ValidatesOnDataErrors=True}">
+                SelectedDate="{Binding RegionViewModel.DateTimeViewModel.SelectedEndDate, ValidatesOnDataErrors=True}"
+                DisplayDateStart="{Binding RegionViewModel.DateTimeViewModel.Today}">
             </DatePicker>
             <ComboBox 
                     ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Hours}"

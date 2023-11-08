@@ -5,6 +5,8 @@ namespace MOE_UI.ViewModels
 {
     public class DateTimeViewModel : BaseViewModel
     {
+        public DateTime Today { get; set; } = DateTime.Today;
+        
         public int[] Hours { get; } = Enumerable.Range(0, 24).ToArray();
         public int[] Minutes { get; } = Enumerable.Range(0, 60).ToArray();
 
