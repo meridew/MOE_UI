@@ -52,7 +52,7 @@ namespace MOE_UI.ViewModels
 
         public DateTime SelectedStartDateTime
         {
-            get => new(_selectedEndDate.Year, _selectedEndDate.Month, _selectedEndDate.Day, _selectedStartHour, _selectedStartMinute, 0);
+            get => new(_selectedStartDate.Year, _selectedStartDate.Month, _selectedStartDate.Day, _selectedStartHour, _selectedStartMinute, 0);
         }
 
         public DateTime SelectedEndDateTime
@@ -60,9 +60,46 @@ namespace MOE_UI.ViewModels
             get => new(_selectedEndDate.Year, _selectedEndDate.Month, _selectedEndDate.Day, _selectedEndHour, _selectedEndMinute, 0);
         }
 
-        public virtual void ValidateProperty(string propertyName, object value)
+        public override void ValidateProperty(string propertyName, object value)
         {
             base.ValidateProperty(propertyName, value);
+
+            if (propertyName.StartsWith("SelectedStart") || propertyName.StartsWith("SelectedEnd"))
+            {
+                ValidateDateTimeRange();
+            }
+        }
+
+        void ValidateDateTimeRange()
+        {
+            if(SelectedStartDateTime > SelectedEndDateTime)
+            {
+                AddDateTimeValidationErrors();
+            }
+            else
+            {
+                ClearDateTimeValidationErrors();
+            }
+        }
+
+        void AddDateTimeValidationErrors()
+        {
+            AddError(nameof(SelectedStartDate), "Start date time must be before end date time.");
+            AddError(nameof(SelectedStartHour), "Start date time must be before end time date.");
+            AddError(nameof(SelectedStartMinute), "Start date time must be before end time date.");
+            AddError(nameof(SelectedEndDate), "End date time must be after start date time.");
+            AddError(nameof(SelectedEndHour), "End date time must be after start date time.");
+            AddError(nameof(SelectedEndMinute), "End date time must be after start date time.");
+        }
+
+        void ClearDateTimeValidationErrors()
+        {
+            ClearError(nameof(SelectedStartDate));
+            ClearError(nameof(SelectedStartHour));
+            ClearError(nameof(SelectedStartMinute));
+            ClearError(nameof(SelectedEndDate));
+            ClearError(nameof(SelectedEndHour));
+            ClearError(nameof(SelectedEndMinute));
         }
     }
 }

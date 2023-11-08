@@ -70,24 +70,24 @@
         <ComboBox
                 Grid.Row="2"
                 Grid.Column="1"
-                ItemsSource="{Binding RegionViewModel.AllRegions , ValidatesOnDataErrors=True}"
-                SelectedItem="{Binding RegionViewModel.SelectedRegion}" SelectedIndex="0">
+                ItemsSource="{Binding RegionViewModel.AllRegions}"
+                SelectedItem="{Binding RegionViewModel.SelectedRegion, ValidatesOnDataErrors=True}" SelectedIndex="0">
         </ComboBox>
 
         <Label Content="Schedule Start" Grid.Row="3" Grid.Column="0"/>
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
             <DatePicker
-                    SelectedDate="{Binding RegionViewModel.DateTimeViewModel.SelectedStartDate}"/>
+                    SelectedDate="{Binding RegionViewModel.DateTimeViewModel.SelectedStartDate, ValidatesOnDataErrors=True}"/>
             <ComboBox 
                 ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Hours}"
-                SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedStartHour}"
+                SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedStartHour, ValidatesOnDataErrors=True}"
                 Width="40" 
                 SelectedIndex="0">
             </ComboBox>
             <ComboBox 
                 ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Minutes}"
-                SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedStartMinute}"
+                SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedStartMinute, ValidatesOnDataErrors=True}"
                 Width="40" 
                 SelectedIndex="0">
             </ComboBox>
@@ -97,18 +97,18 @@
 
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
             <DatePicker
-                    SelectedDate="{Binding RegionViewModel.DateTimeViewModel.SelectedEndDate}">
+                    SelectedDate="{Binding RegionViewModel.DateTimeViewModel.SelectedEndDate, ValidatesOnDataErrors=True}">
             </DatePicker>
             <ComboBox 
                     ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Hours}"
-                    SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedStartHour}"
+                    SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedEndHour, ValidatesOnDataErrors=True}"
                     Width="40" 
                     SelectedIndex="0">
 
             </ComboBox>
             <ComboBox 
                     ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Minutes}"
-                    SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedEndMinute}"
+                    SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedEndMinute, ValidatesOnDataErrors=True}"
                     Width="40" 
                     SelectedIndex="0">
 
