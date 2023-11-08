@@ -56,62 +56,44 @@
             Grid.ColumnSpan="2">
         </Label>
 
-        <Label 
-            Content="Campaign Name"
-            Grid.Row="1" 
-            Grid.Column="0">
-        </Label>
+        <Label Content="Campaign Name" Grid.Row="1" Grid.Column="0"/>
 
         <TextBox 
-                Grid.Row="1" 
-                Grid.Column="1"
-                Height="26"
-                Text="{Binding CampaignViewModel.SelectedCampaignName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+            Grid.Row="1" 
+            Grid.Column="1"
+            Height="26"
+            Text="{Binding CampaignViewModel.SelectedCampaignName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
         </TextBox>
 
-        <Label 
-                Content="Region Name" 
-                Grid.Row="2" 
-                Grid.Column="0">
-        </Label>
+        <Label Content="Region Name" Grid.Row="2" Grid.Column="0"/>
 
         <ComboBox
                 Grid.Row="2"
                 Grid.Column="1"
                 ItemsSource="{Binding RegionViewModel.AllRegions , ValidatesOnDataErrors=True}"
-                SelectedItem="{Binding RegionViewModel.SelectedRegion}" SelectedIndex="-1">
+                SelectedItem="{Binding RegionViewModel.SelectedRegion}" SelectedIndex="0">
         </ComboBox>
 
-        <Label 
-                Content="Schedule Start" 
-                Grid.Row="3" 
-                Grid.Column="0">
-        </Label>
+        <Label Content="Schedule Start" Grid.Row="3" Grid.Column="0"/>
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
             <DatePicker
                     SelectedDate="{Binding RegionViewModel.DateTimeViewModel.SelectedStartDate}"/>
             <ComboBox 
-                    ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Hours}"
-                    SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedStartHour}"
-                    Width="40" 
-                    SelectedIndex="0">
-
+                ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Hours}"
+                SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedStartHour}"
+                Width="40" 
+                SelectedIndex="0">
             </ComboBox>
             <ComboBox 
-                    ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Minutes}"
-                    SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedStartMinute}"
-                    Width="40" 
-                    SelectedIndex="0">
-
+                ItemsSource="{Binding RegionViewModel.DateTimeViewModel.Minutes}"
+                SelectedItem="{Binding RegionViewModel.DateTimeViewModel.SelectedStartMinute}"
+                Width="40" 
+                SelectedIndex="0">
             </ComboBox>
         </StackPanel>
 
-        <Label 
-               Content="Schedule End" 
-               Grid.Row="4" 
-               Grid.Column="0">
-        </Label>
+        <Label Content="Schedule End" Grid.Row="4" Grid.Column="0"/>
 
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
             <DatePicker
@@ -133,17 +115,9 @@
             </ComboBox>
         </StackPanel>
 
-        <Label 
-            Grid.Row="5" 
-            Content="Region Criteria"
-            FontWeight="Bold"
-            Grid.ColumnSpan="2">
-
-        </Label>
-        <Label 
-            Content="OS Family"
-            Grid.Row="6">
-        </Label>
+        <Label Grid.Row="5" Content="Region Criteria" FontWeight="Bold" Grid.ColumnSpan="2"/>
+        
+        <Label Content="OS Family" Grid.Row="6"/>
 
         <Grid Grid.Row="6" Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -151,18 +125,18 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <ComboBox 
-                    ItemsSource="{Binding RegionViewModel.CriteriaViewModel.Operands}"
-                    SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyOperand, ValidatesOnDataErrors=True}"
-                    Grid.Column="0" />
+                ItemsSource="{Binding RegionViewModel.CriteriaViewModel.Operands}"
+                SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyOperand, ValidatesOnDataErrors=True}"
+                Grid.Column="0" 
+                SelectedIndex="0"/>
             <ComboBox 
-                    ItemsSource="{Binding RegionViewModel.CriteriaViewModel.DeviceOsFamilies}"
-                    SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyValue, ValidatesOnDataErrors=True}"
-                    Grid.Column="1"/>
+                ItemsSource="{Binding RegionViewModel.CriteriaViewModel.DeviceOsFamilies}"
+                SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsFamilyValue, ValidatesOnDataErrors=True}"
+                Grid.Column="1" 
+                SelectedIndex="0"/>
         </Grid>
 
-        <Label 
-                Grid.Row="7" 
-                Content="OS Version"></Label>
+        <Label Grid.Row="7" Content="OS Version"/>
 
         <Grid Grid.Row="7" Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -170,17 +144,16 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <ComboBox 
-                    ItemsSource="{Binding RegionViewModel.CriteriaViewModel.Operands}"
-                    SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionOperand, ValidatesOnDataErrors=True}"
-                    Grid.Column="0"/>
+                ItemsSource="{Binding RegionViewModel.CriteriaViewModel.Operands}"
+                SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionOperand, ValidatesOnDataErrors=True}"
+                Grid.Column="0" 
+                SelectedIndex="0"/>
             <TextBox
-                    Text="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionValue, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
-                    Grid.Column="2"/>
+                Text="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetDeviceOsVersionValue, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                Grid.Column="2"/>
         </Grid>
 
-        <Label 
-                Grid.Row="9" 
-                Content="Last Communicated (days)"></Label>
+        <Label Grid.Row="9" Content="Last Communicated (days)"/>
 
         <Grid Grid.Row="10" Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -189,12 +162,12 @@
 
             </Grid.ColumnDefinitions>
             <ComboBox 
-                    ItemsSource="{Binding RegionViewModel.CriteriaViewModel.Operands}"
-                    SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysOperand}"
-                    Grid.Column="0"/>
+                ItemsSource="{Binding RegionViewModel.CriteriaViewModel.Operands}"
+                SelectedItem="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysOperand}"
+                Grid.Column="0" SelectedIndex="1"/>
             <TextBox 
-                    Text="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysValue, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                    Grid.Column="1" ></TextBox>
+                Text="{Binding RegionViewModel.CriteriaViewModel.SelectedTargetLastCommunicatedDaysValue, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                Grid.Column="1" ></TextBox>
         </Grid>
     </Grid>
 </UserControl>

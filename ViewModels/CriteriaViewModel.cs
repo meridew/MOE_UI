@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 
 namespace MOE_UI.ViewModels
 {
@@ -86,7 +87,6 @@ namespace MOE_UI.ViewModels
             set => SetProperty(ref _selectedTargetLastCommunicatedDaysValue, value);
         }
 
-
         public ObservableCollection<CriterionViewModel> GetCriteria()
         {
             var criteria = new ObservableCollection<CriterionViewModel>
@@ -128,6 +128,10 @@ namespace MOE_UI.ViewModels
                     if (string.IsNullOrEmpty(SelectedTargetDeviceOsVersionValue))
                     {
                         AddError(propertyName, "Value is required.");
+                    }
+                    else if(!Regex.IsMatch(SelectedTargetDeviceOsVersionValue, @"^\d+(\.\d+)?(\.[^\s.]+)?(\.[^\s.]+)?$"))
+                    {
+                        AddError(propertyName, "Value invalid format");
                     }
                     break;
                 case nameof(SelectedTargetLastCommunicatedDaysOperand):
