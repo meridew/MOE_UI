@@ -27,7 +27,6 @@
 
         <Button
             Content="➕"
-            
             Background="{Binding CampaignViewModel.AddRegionIndicatorColor}"
             Command="{Binding CampaignViewModel.AddRegionCommand, ValidatesOnDataErrors=True}"
             Grid.Row="1"

@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MOE_UI.Controls
 {
@@ -24,11 +12,29 @@ namespace MOE_UI.Controls
         public static readonly RoutedEvent CloseButtonClickEvent = EventManager.RegisterRoutedEvent(
             "CloseButtonClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(Header));
 
+        public static readonly RoutedEvent MinimiseButtonClickEvent = EventManager.RegisterRoutedEvent(
+       "MinimiseButtonClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(Header));
+
+        public static readonly RoutedEvent MaximiseButtonClickEvent = EventManager.RegisterRoutedEvent(
+       "MaximiseButtonClick", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(Header));
+
         // .NET event wrapper
         public event RoutedEventHandler CloseButtonClick
         {
             add { AddHandler(CloseButtonClickEvent, value); }
             remove { RemoveHandler(CloseButtonClickEvent, value); }
+        }
+
+        public event RoutedEventHandler MinimiseButtonClick
+        {
+            add { AddHandler(MinimiseButtonClickEvent, value); }
+            remove { RemoveHandler(MinimiseButtonClickEvent, value); }
+        }
+
+        public event RoutedEventHandler MaximiseButtonClick
+        {
+            add { AddHandler(MaximiseButtonClickEvent, value); }
+            remove { RemoveHandler(MaximiseButtonClickEvent, value); }
         }
 
         public Header()
@@ -40,6 +46,18 @@ namespace MOE_UI.Controls
         {
             // Raise the routed event, which bubbles up in the element tree
             RaiseEvent(new RoutedEventArgs(CloseButtonClickEvent));
+        }
+
+        private void MinimiseButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Raise the routed event, which bubbles up in the element tree
+            RaiseEvent(new RoutedEventArgs(MinimiseButtonClickEvent));
+        }
+
+        private void MaximiseButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Raise the routed event, which bubbles up in the element tree
+            RaiseEvent(new RoutedEventArgs(MaximiseButtonClickEvent));
         }
     }
 

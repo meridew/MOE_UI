@@ -6,7 +6,7 @@
                 <ControlTemplate>
                     <DockPanel LastChildFill="True">
                         <!-- The border is part of the error template and will appear around the adorned control -->
-                        <Border BorderBrush="#FF8AA6FF" BorderThickness="2" Margin="4">
+                        <Border BorderBrush="#FF81A8FF" BorderThickness="2"  Margin="4">
                             <AdornedElementPlaceholder Name="customAdorner"/>
                         </Border>
                         <!-- The error icon is positioned outside of the border -->
@@ -24,25 +24,32 @@
     <Style TargetType="Button" BasedOn="{StaticResource ValidatedControlStyle}">
         <Setter Property="Margin" Value="10"/>
     </Style>
+    
     <Style TargetType="ComboBox" BasedOn="{StaticResource ValidatedControlStyle}">
         <Setter Property="Margin" Value="10"/>
     </Style>
+    
     <Style TargetType="DatePicker" BasedOn="{StaticResource ValidatedControlStyle}">
         <Setter Property="Margin" Value="10"/>
     </Style>
+    
     <Style TargetType="TextBox" BasedOn="{StaticResource ValidatedControlStyle}">
         <Setter Property="Margin" Value="10"/>
     </Style>
+    
     <Style TargetType="Label" BasedOn="{StaticResource ValidatedControlStyle}">
         <Setter Property="Margin" Value="10"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="BorderThickness" Value="0,0,0,1"/>
     </Style>
+    
     <Style TargetType="DataGrid" BasedOn="{StaticResource ValidatedControlStyle}">
         <Setter Property="Margin" Value="10"/>
         <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected"/>
     </Style>
+    
     <Style TargetType="Window">
-        <Setter Property="Background" Value="LightGrey"/>
+        <Setter Property="Background" Value="Orange"/>
     </Style>
+    
 </ResourceDictionary>

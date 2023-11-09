@@ -110,10 +110,10 @@ namespace MOE_UI.ViewModels
             switch (property)
             {
                 case nameof(AddRegionIndicatorColor):
-                    AddRegionIndicatorColor = enabled ? "LightGreen" : "Transparent";
+                    AddRegionIndicatorColor = enabled ? "DarkGreen" : "Transparent";
                     break;
                 case nameof(UpdateRegionIndicatorColor):
-                    UpdateRegionIndicatorColor = enabled ? "LightBlue" : "Transparent";
+                    UpdateRegionIndicatorColor = enabled ? "#FFFEDD3A" : "Transparent";
                     break;
             }
         }

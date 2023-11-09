@@ -21,7 +21,7 @@
         <Image 
             Margin="20"
             Grid.Column="0" 
-            Source="Img/IconBoxes.ico" Width="40"/>
+            Source="Img/IconBoxes.ico" Width="40" OpacityMask="#FFFEDD3A"/>
         <Label 
             Grid.Column="1" 
             Content="Mobility Orchestration Engine"
@@ -29,7 +29,8 @@
             Foreground="White"
             BorderThickness="0"
             VerticalContentAlignment="Center"/>
-        <Button 
+        <Button
+            Click="MinimiseButton_Click"
             Grid.Column="2"
             VerticalAlignment="Top"
             Background="Transparent"
@@ -37,6 +38,7 @@
             BorderThickness="0"
             Content="🗕"/>
         <Button 
+            Click="MaximiseButton_Click"
             Grid.Column="3"
             VerticalAlignment="Top"
             Background="Transparent"
