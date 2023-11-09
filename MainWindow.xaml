@@ -11,7 +11,7 @@
         Height="720"
         Width="1280"
         WindowStyle="None"
-        Background="LightGray"
+        Background="Yellow"
         DataContext="{StaticResource Locator}">
     <Grid>
         <Grid.ColumnDefinitions>
