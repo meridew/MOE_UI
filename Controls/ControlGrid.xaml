@@ -4,9 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MOE_UI.Controls"
-        DataContext="{StaticResource Locator}"
-        UseLayoutRounding="True"
-        RenderOptions.BitmapScalingMode="NearestNeighbor">
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        DataContext="{StaticResource Locator}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -123,7 +122,7 @@
         </StackPanel>
 
         <Label Grid.Row="5" Content="Region Criteria" FontWeight="Bold" Grid.ColumnSpan="2"/>
-        
+
         <Label Content="OS Family" Grid.Row="6"/>
 
         <Grid Grid.Row="6" Grid.Column="1">

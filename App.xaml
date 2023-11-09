@@ -4,6 +4,14 @@
              xmlns:vm="clr-namespace:MOE_UI.ViewModels"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <vm:ViewModelLocator x:Key="Locator" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Merge your Styles.xaml here -->
+                <ResourceDictionary Source="/controls/styles/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Other resources can be defined here -->
+            <vm:ViewModelLocator x:Key="Locator" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

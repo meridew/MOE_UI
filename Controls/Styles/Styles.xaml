@@ -42,4 +42,7 @@
         <Setter Property="Margin" Value="10"/>
         <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected"/>
     </Style>
+    <Style TargetType="Window">
+        <Setter Property="Background" Value="LightGrey"/>
+    </Style>
 </ResourceDictionary>

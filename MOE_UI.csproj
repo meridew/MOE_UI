@@ -9,33 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Controls\Img\icon.ico" />
-    <None Remove="Controls\Img\minus.png" />
-    <None Remove="Controls\Img\plus.png" />
-    <None Remove="Controls\Img\refresh.png" />
+    <None Remove="Controls\Img\IconBoxes.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Controls\Img\minus.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Controls\Img\plus.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Controls\Img\refresh.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\Downloads\blocks_group_line_icon_236129.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Controls\Img\icon.ico" />
+    <Resource Include="Controls\Img\IconBoxes.ico" />
   </ItemGroup>
 
 </Project>
