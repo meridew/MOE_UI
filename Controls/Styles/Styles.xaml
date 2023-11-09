@@ -6,7 +6,7 @@
                 <ControlTemplate>
                     <DockPanel LastChildFill="True">
                         <!-- The border is part of the error template and will appear around the adorned control -->
-                        <Border BorderBrush="#FF81A8FF" BorderThickness="2" Margin="5">
+                        <Border BorderBrush="#FF8AA6FF" BorderThickness="2" Margin="4">
                             <AdornedElementPlaceholder Name="customAdorner"/>
                         </Border>
                         <!-- The error icon is positioned outside of the border -->
@@ -36,7 +36,7 @@
     <Style TargetType="Label" BasedOn="{StaticResource ValidatedControlStyle}">
         <Setter Property="Margin" Value="10"/>
         <Setter Property="BorderBrush" Value="Black"/>
-        <Setter Property="BorderThickness" Value="0,0,0,0.3"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
     </Style>
     <Style TargetType="DataGrid" BasedOn="{StaticResource ValidatedControlStyle}">
         <Setter Property="Margin" Value="10"/>

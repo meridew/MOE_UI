@@ -5,6 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:MOE_UI.Controls"
         mc:Ignorable="d"
+        Icon="\Controls\Img\icon.ico"
+        Title="Mobility Orchestration Engine"
+        Background="LightGray"
         Height="720"
         Width="1280"
         DataContext="{StaticResource Locator}">

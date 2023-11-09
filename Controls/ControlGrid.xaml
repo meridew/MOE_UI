@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:MOE_UI.Controls"
         DataContext="{StaticResource Locator}"
         UseLayoutRounding="True"
-        RenderOptions.BitmapScalingMode="NearestNeighbor"
-             Background="White">
+        RenderOptions.BitmapScalingMode="NearestNeighbor">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

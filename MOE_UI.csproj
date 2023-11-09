@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Controls\Img\icon.ico" />
     <None Remove="Controls\Img\minus.png" />
     <None Remove="Controls\Img\plus.png" />
     <None Remove="Controls\Img\refresh.png" />
@@ -31,6 +32,10 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Controls\Img\icon.ico" />
   </ItemGroup>
 
 </Project>
