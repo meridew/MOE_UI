@@ -23,14 +23,7 @@ namespace MOE_UI
         {
             if (e.ClickCount == 2)
             {
-                if (this.WindowState == WindowState.Normal)
-                {
-                    this.WindowState = WindowState.Maximized;
-                }
-                else if (this.WindowState == WindowState.Maximized)
-                {
-                    this.WindowState = WindowState.Normal;
-                }
+                WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
             }
             else
             {
