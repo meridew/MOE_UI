@@ -16,10 +16,11 @@
         </Label>
 
         <DataGrid
-                ItemsSource="{Binding CampaignViewModel.AddedRegions}"
-                SelectedItem="{Binding CampaignViewModel.SelectedRegionRow}"
-                AutoGenerateColumns="False"                
-                Grid.Row="1" SelectedIndex="0" IsReadOnly="True">
+            ItemsSource="{Binding CampaignViewModel.AddedRegions}"
+            SelectedItem="{Binding CampaignViewModel.SelectedRegionRow}"
+            AutoGenerateColumns="False"                
+            Grid.Row="1" SelectedIndex="0" 
+            IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Region" Binding="{Binding RegionName}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Schedule Start" Binding="{Binding ScheduleStart}"></DataGridTextColumn>

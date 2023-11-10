@@ -46,10 +46,36 @@
     <Style TargetType="DataGrid" BasedOn="{StaticResource ValidatedControlStyle}">
         <Setter Property="Margin" Value="10"/>
         <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected"/>
+        <!-- Style for DataGridRow -->
+        <Setter Property="RowStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridRow">
+                    <!-- Trigger for when a row is selected but DataGrid is not focused -->
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                            <Setter Property="Background" Value="red"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+
+        <!-- Style for DataGridCell -->
+        <Setter Property="CellStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridCell">
+                    <!-- Change the Background of the cell when the row is selected -->
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" Value="True">
+                            <Setter Property="Background" Value="red"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
     </Style>
-    
+
     <Style TargetType="Window">
         <Setter Property="Background" Value="Orange"/>
     </Style>
-    
 </ResourceDictionary>

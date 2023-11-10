@@ -11,7 +11,7 @@
         Height="720"
         Width="1280"
         WindowStyle="None"
-        Background="Yellow"
+        Background="LightGray"
         DataContext="{StaticResource Locator}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -25,7 +25,12 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <controls:Header CloseButtonClick="Header_CloseButtonClick" MaximiseButtonClick="MaximizeRestoreClick" MinimiseButtonClick="MinimizeClick" Grid.ColumnSpan="2" MouseLeftButtonDown="DragWindow"/>
+        <controls:Header 
+            CloseButtonClick="Header_CloseButtonClick" 
+            MaximiseButtonClick="MaximizeRestoreClick" 
+            MinimiseButtonClick="MinimizeClick" 
+            Grid.ColumnSpan="2" 
+            MouseLeftButtonDown="DragWindow"/>
         <controls:ControlGrid Grid.Row="1" Grid.Column="0"></controls:ControlGrid>
         <controls:EmailAddresses Grid.Row="2" Grid.Column="0" Grid.RowSpan="3"/>
         <Grid

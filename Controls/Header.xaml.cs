@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace MOE_UI.Controls
 {
@@ -36,6 +37,7 @@ namespace MOE_UI.Controls
             add { AddHandler(MaximiseButtonClickEvent, value); }
             remove { RemoveHandler(MaximiseButtonClickEvent, value); }
         }
+
 
         public Header()
         {

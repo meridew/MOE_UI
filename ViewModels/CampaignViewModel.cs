@@ -98,6 +98,11 @@ namespace MOE_UI.ViewModels
         void RemoveRegion()
         {
             AddedRegions.Remove(SelectedRegionRow);
+
+            if (AddedRegions.Count > 0)
+            {
+                SelectedRegionRow = AddedRegions[0];
+            }
         }
 
         bool CanRemoveRegion()

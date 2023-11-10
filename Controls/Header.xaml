@@ -22,7 +22,7 @@
             Margin="20"
             Grid.Column="0" 
             Source="Img/IconBoxes.ico" Width="40" OpacityMask="#FFFEDD3A"/>
-        <Label 
+        <Label
             Grid.Column="1" 
             Content="Mobility Orchestration Engine"
             FontSize="20"
