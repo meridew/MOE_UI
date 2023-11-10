@@ -22,10 +22,10 @@
                 Grid.Row="1" SelectedIndex="0" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Region" Binding="{Binding RegionName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Schedule Start" Binding="{Binding ScheduleStart}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Schedule End" Binding="{Binding ScheduleEnd}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Schedule Start UTC" Binding="{Binding ScheduleStartUTC}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Schedule End UTC" Binding="{Binding ScheduleEndUTC}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Schedule Start (Local)" Binding="{Binding ScheduleStart}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Schedule Start (UTC)" Binding="{Binding ScheduleStartUTC}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Schedule End (Local)" Binding="{Binding ScheduleEnd}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Schedule End (UTC)" Binding="{Binding ScheduleEndUTC}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Emails" Binding="{Binding EmailAddressCount}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
