@@ -80,10 +80,10 @@ namespace MOE_UI.ViewModels
             }
         }
 
-        public ICommand AddRegionCommand { get; private set; }
-        public ICommand UpdateRegionCommand { get; private set; }
-        public ICommand RemoveRegionCommand { get; private set; }
-        public ICommand ExportCampaignCommand { get; private set; }
+        public RelayCommand AddRegionCommand { get; private set; }
+        public RelayCommand UpdateRegionCommand { get; private set; }
+        public RelayCommand RemoveRegionCommand { get; private set; }
+        public RelayCommand ExportCampaignCommand { get; private set; }
 
         bool CanExportCampaign()
         {
@@ -92,7 +92,7 @@ namespace MOE_UI.ViewModels
 
         void ExportCampaign()
         {
-            FileHelper.ExportCampaign(this);
+            FileHelper.ExportCampaignPrompt(this);
         }
 
         void RemoveRegion()
@@ -118,7 +118,7 @@ namespace MOE_UI.ViewModels
                     AddRegionIndicatorColor = enabled ? "DarkGreen" : "Transparent";
                     break;
                 case nameof(UpdateRegionIndicatorColor):
-                    UpdateRegionIndicatorColor = enabled ? "#FFFEDD3A" : "Transparent";
+                    UpdateRegionIndicatorColor = enabled ? "LightGreen" : "Transparent";
                     break;
             }
         }
