@@ -9,8 +9,9 @@ namespace MOE_UI.Models
     {
         [Key]
         public int CampaignId { get; set; }
-        [ForeignKey("DomainId")]
         public int DomainId { get; set; }
+        [ForeignKey("DomainId")]
+        public virtual Domain Domain { get; set; }
         public bool Active { get; set; }
         public string CampaignName { get; set; }
         public DateTime CreatedBy { get; set; }
