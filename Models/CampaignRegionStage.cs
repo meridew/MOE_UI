@@ -8,23 +8,14 @@ namespace MOE_UI.Models
 {
     public class CampaignRegionStage
     {
-        [Key]
-        public int CampaignRegionStageId { get; set; }
+        [Key] public int CampaignRegionStageId { get; set; }
+        [ForeignKey("CampaignRegionId")] public CampaignRegion CampaignRegion { get; set; }
+        [ForeignKey("ApiCommandId")] public ApiCommand ApiCommand { get; set; }
         public int CampaignRegionId { get; set; }
-        [ForeignKey("CampaignRegionId")]
-        public virtual CampaignRegion CampaignRegion { get; set; }
         public int ApiCommandId { get; set; }
-        [ForeignKey("ApiCommandId")]
-        public virtual ApiCommand ApiCommand { get; set; }
         public int StageOrder { get; set; }
-        public virtual ICollection<Action> Actions { get; set; }
-        public virtual ICollection<CampaignRegionStageCriteria> CampaignRegionStageCriterias { get; set; }
+        public ICollection<CampaignRegionStageCriteria> CampaignRegionStageCriterias { get; set; } = new HashSet<CampaignRegionStageCriteria>();
 
-        public CampaignRegionStage()
-        {
-            Actions = new HashSet<Action>();
-            CampaignRegionStageCriterias = new HashSet<CampaignRegionStageCriteria>();
-        }
+        public ICollection<Action> Actions { get; set; } = new HashSet<Action>();
     }
-
 }

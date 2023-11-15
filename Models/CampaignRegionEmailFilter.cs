@@ -7,7 +7,6 @@ namespace MOE_UI.Models
     {
         [Key]
         public int CampaignRegionEmailFilterId { get; set; }
-        [ForeignKey("CampaignRegionId")]
         public int CampaignRegionId { get; set; }
         public string EmailAddress { get; set; }
     }

@@ -6,40 +6,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MOE_UI.Migrations
 {
     /// <inheritdoc />
-    public partial class AddApiCommandToCampaignRegionStage : Migration
+    public partial class AddedCampaignRegionStageApiCommandRelationship : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "CampaignRegionStageId",
-                table: "ApiCommands",
-                type: "int",
-                nullable: true);
-
             migrationBuilder.UpdateData(
                 table: "Domains",
                 keyColumn: "DomainId",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2023, 11, 11, 9, 43, 2, 454, DateTimeKind.Local).AddTicks(3130));
+                value: new DateTime(2023, 11, 12, 21, 2, 59, 512, DateTimeKind.Local).AddTicks(9784));
 
             migrationBuilder.CreateIndex(
                 name: "IX_CampaignRegionStages_ApiCommandId",
                 table: "CampaignRegionStages",
                 column: "ApiCommandId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ApiCommands_CampaignRegionStageId",
-                table: "ApiCommands",
-                column: "CampaignRegionStageId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ApiCommands_CampaignRegionStages_CampaignRegionStageId",
-                table: "ApiCommands",
-                column: "CampaignRegionStageId",
-                principalTable: "CampaignRegionStages",
-                principalColumn: "CampaignRegionStageId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_CampaignRegionStages_ApiCommands_ApiCommandId",
@@ -47,16 +29,12 @@ namespace MOE_UI.Migrations
                 column: "ApiCommandId",
                 principalTable: "ApiCommands",
                 principalColumn: "ApiCommandId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_ApiCommands_CampaignRegionStages_CampaignRegionStageId",
-                table: "ApiCommands");
-
             migrationBuilder.DropForeignKey(
                 name: "FK_CampaignRegionStages_ApiCommands_ApiCommandId",
                 table: "CampaignRegionStages");
@@ -65,20 +43,12 @@ namespace MOE_UI.Migrations
                 name: "IX_CampaignRegionStages_ApiCommandId",
                 table: "CampaignRegionStages");
 
-            migrationBuilder.DropIndex(
-                name: "IX_ApiCommands_CampaignRegionStageId",
-                table: "ApiCommands");
-
-            migrationBuilder.DropColumn(
-                name: "CampaignRegionStageId",
-                table: "ApiCommands");
-
             migrationBuilder.UpdateData(
                 table: "Domains",
                 keyColumn: "DomainId",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2023, 11, 11, 9, 38, 34, 400, DateTimeKind.Local).AddTicks(607));
+                value: new DateTime(2023, 11, 12, 20, 50, 13, 244, DateTimeKind.Local).AddTicks(4037));
         }
     }
 }

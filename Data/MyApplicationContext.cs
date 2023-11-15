@@ -12,16 +12,12 @@ namespace MOE_UI.Data
     public class MyApplicationContext : DbContext
     {
         public DbSet<Domain> Domains { get; set; }
+        public DbSet<Region> Regions { get; set; }
         public DbSet<Campaign> Campaigns { get; set; }
-
         public DbSet<CampaignRegion> CampaignRegions { get; set; }
-
         public DbSet<CampaignRegionStage> CampaignRegionStages { get; set; }
-
         public DbSet<CampaignRegionStageCriteria> CampaignRegionStageCriterias { get; set; }
-
         public DbSet<ApiCommand> ApiCommands { get; set; }
-
         public DbSet<Models.Action> Actions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,8 +28,18 @@ namespace MOE_UI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Configure Domain entity
+            modelBuilder.Entity<Domain>().Property(e => e.CreatedAt).HasDefaultValueSql("getdate()");
             modelBuilder.Entity<Domain>().HasData(new Domain { DomainId=1, DomainName="CORP" });
+            modelBuilder.Entity<Domain>().HasData(new Domain { DomainId=2, DomainName="CORP2" });
+            modelBuilder.Entity<Domain>().HasData(new Domain { DomainId=3, DomainName="CORP3" });
+
+            // Disable cascade delete for all entities
+
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
     }
-
 }

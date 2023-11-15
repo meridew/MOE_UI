@@ -7,10 +7,9 @@ namespace MOE_UI.Models
 {
     public class Region
     {
-        [Key]
-        public int RegionId { get; set; }
+        [Key] public int RegionId { get; set; }
+        [ForeignKey("DomainId")] public Domain Domain { get; set; }
         public int DomainId { get; set; }
-        public virtual ICollection<Domain> Domain { get; set; }
         public string RegionName { get; set; }
         public int BatchSize { get; set; }
         public int ActionRetryThreshold { get; set; }
@@ -22,9 +21,6 @@ namespace MOE_UI.Models
         public string RegionUemDropCreateTablesSproc { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        public Region()
-        {
-            Domain = new HashSet<Domain>();
-        }
+        public ICollection<CampaignRegion> CampaignRegions { get; set; } = new HashSet<CampaignRegion>();
     }
 }

@@ -6,10 +6,9 @@ namespace MOE_UI.Models
 {
     public class Action
     {
-        [Key]
-        public int ActionId { get; set; }
-        [ForeignKey("CampaignRegionStageId")]
+        [Key] public int ActionId { get; set; }
         public int CampaignRegionStageId { get; set; }
+        [ForeignKey("CampaignRegionStageId")] public CampaignRegionStage CampaignRegionStage { get; set; }
         public string EmailAddress { get; set; }
         public Guid UserGuid { get; set; }
         public Guid PerimeterUuid { get; set; }

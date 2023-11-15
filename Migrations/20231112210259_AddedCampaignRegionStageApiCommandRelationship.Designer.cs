@@ -4,6 +4,7 @@ using MOE_UI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MOE_UI.Migrations
 {
     [DbContext(typeof(MyApplicationContext))]
-    partial class MyApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231112210259_AddedCampaignRegionStageApiCommandRelationship")]
+    partial class AddedCampaignRegionStageApiCommandRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,8 +65,6 @@ namespace MOE_UI.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ActionId");
-
-                    b.HasIndex("CampaignRegionStageId");
 
                     b.ToTable("Actions");
                 });
@@ -194,8 +195,6 @@ namespace MOE_UI.Migrations
 
                     b.HasKey("CampaignRegionStageCriteriaId");
 
-                    b.HasIndex("CampaignRegionStageId");
-
                     b.ToTable("CampaignRegionStageCriterias");
                 });
 
@@ -228,9 +227,7 @@ namespace MOE_UI.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DomainId"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DomainName")
                         .IsRequired()
@@ -244,20 +241,8 @@ namespace MOE_UI.Migrations
                         new
                         {
                             DomainId = 1,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2023, 11, 12, 21, 2, 59, 512, DateTimeKind.Local).AddTicks(9784),
                             DomainName = "CORP"
-                        },
-                        new
-                        {
-                            DomainId = 2,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DomainName = "CORP2"
-                        },
-                        new
-                        {
-                            DomainId = 3,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DomainName = "CORP3"
                         });
                 });
 
@@ -316,17 +301,6 @@ namespace MOE_UI.Migrations
                     b.ToTable("Regions");
                 });
 
-            modelBuilder.Entity("MOE_UI.Models.Action", b =>
-                {
-                    b.HasOne("MOE_UI.Models.CampaignRegionStage", "CampaignRegionStage")
-                        .WithMany("Actions")
-                        .HasForeignKey("CampaignRegionStageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CampaignRegionStage");
-                });
-
             modelBuilder.Entity("MOE_UI.Models.Campaign", b =>
                 {
                     b.HasOne("MOE_UI.Models.Domain", null)
@@ -374,17 +348,6 @@ namespace MOE_UI.Migrations
                     b.Navigation("CampaignRegion");
                 });
 
-            modelBuilder.Entity("MOE_UI.Models.CampaignRegionStageCriteria", b =>
-                {
-                    b.HasOne("MOE_UI.Models.CampaignRegionStage", "CampaignRegionStage")
-                        .WithMany("CampaignRegionStageCriterias")
-                        .HasForeignKey("CampaignRegionStageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CampaignRegionStage");
-                });
-
             modelBuilder.Entity("MOE_UI.Models.Region", b =>
                 {
                     b.HasOne("MOE_UI.Models.Domain", "Domain")
@@ -404,13 +367,6 @@ namespace MOE_UI.Migrations
             modelBuilder.Entity("MOE_UI.Models.CampaignRegion", b =>
                 {
                     b.Navigation("CampaignRegionStages");
-                });
-
-            modelBuilder.Entity("MOE_UI.Models.CampaignRegionStage", b =>
-                {
-                    b.Navigation("Actions");
-
-                    b.Navigation("CampaignRegionStageCriterias");
                 });
 
             modelBuilder.Entity("MOE_UI.Models.Definitions.ApiCommand", b =>

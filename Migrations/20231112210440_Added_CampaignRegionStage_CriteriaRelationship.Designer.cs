@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MOE_UI.Migrations
 {
     [DbContext(typeof(MyApplicationContext))]
-    [Migration("20231111093834_AddDomainToCampaign")]
-    partial class AddDomainToCampaign
+    [Migration("20231112210440_Added_CampaignRegionStage_CriteriaRelationship")]
+    partial class Added_CampaignRegionStage_CriteriaRelationship
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,8 +65,6 @@ namespace MOE_UI.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ActionId");
-
-                    b.HasIndex("CampaignRegionStageId");
 
                     b.ToTable("Actions");
                 });
@@ -138,6 +136,8 @@ namespace MOE_UI.Migrations
 
                     b.HasIndex("CampaignId");
 
+                    b.HasIndex("RegionId");
+
                     b.ToTable("CampaignRegions");
                 });
 
@@ -159,6 +159,8 @@ namespace MOE_UI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CampaignRegionStageId");
+
+                    b.HasIndex("ApiCommandId");
 
                     b.HasIndex("CampaignRegionId");
 
@@ -210,6 +212,9 @@ namespace MOE_UI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("ApiCommandId");
 
                     b.ToTable("ApiCommands");
@@ -238,56 +243,133 @@ namespace MOE_UI.Migrations
                         new
                         {
                             DomainId = 1,
-                            CreatedAt = new DateTime(2023, 11, 11, 9, 38, 34, 400, DateTimeKind.Local).AddTicks(607),
+                            CreatedAt = new DateTime(2023, 11, 12, 21, 4, 40, 291, DateTimeKind.Local).AddTicks(708),
                             DomainName = "CORP"
                         });
                 });
 
-            modelBuilder.Entity("MOE_UI.Models.Action", b =>
+            modelBuilder.Entity("MOE_UI.Models.Region", b =>
                 {
-                    b.HasOne("MOE_UI.Models.CampaignRegionStage", null)
-                        .WithMany("Actions")
-                        .HasForeignKey("CampaignRegionStageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("RegionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RegionId"));
+
+                    b.Property<int>("ActionRetryThreshold")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BatchSize")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DomainId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RegionName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RegionUemDeviceActioNSoftwareTable")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RegionUemDeviceActionInfoTable")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RegionUemDeviceActionPolicyTable")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RegionUemDeviceOsTable")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RegionUemDropCreateTablesSproc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RegionUemUserDeviceTable")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RegionId");
+
+                    b.HasIndex("DomainId");
+
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("MOE_UI.Models.Campaign", b =>
                 {
-                    b.HasOne("MOE_UI.Models.Domain", "Domain")
+                    b.HasOne("MOE_UI.Models.Domain", null)
                         .WithMany("Campaigns")
                         .HasForeignKey("DomainId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Domain");
                 });
 
             modelBuilder.Entity("MOE_UI.Models.CampaignRegion", b =>
                 {
-                    b.HasOne("MOE_UI.Models.Campaign", null)
+                    b.HasOne("MOE_UI.Models.Campaign", "Campaign")
                         .WithMany("CampaignRegions")
                         .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("MOE_UI.Models.Region", "Region")
+                        .WithMany("CampaignRegions")
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Campaign");
+
+                    b.Navigation("Region");
                 });
 
             modelBuilder.Entity("MOE_UI.Models.CampaignRegionStage", b =>
                 {
-                    b.HasOne("MOE_UI.Models.CampaignRegion", null)
+                    b.HasOne("MOE_UI.Models.Definitions.ApiCommand", "ApiCommand")
+                        .WithMany("CampaignRegionStages")
+                        .HasForeignKey("ApiCommandId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MOE_UI.Models.CampaignRegion", "CampaignRegion")
                         .WithMany("CampaignRegionStages")
                         .HasForeignKey("CampaignRegionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("ApiCommand");
+
+                    b.Navigation("CampaignRegion");
                 });
 
             modelBuilder.Entity("MOE_UI.Models.CampaignRegionStageCriteria", b =>
                 {
-                    b.HasOne("MOE_UI.Models.CampaignRegionStage", null)
+                    b.HasOne("MOE_UI.Models.CampaignRegionStage", "CampaignRegionStage")
                         .WithMany("CampaignRegionStageCriterias")
                         .HasForeignKey("CampaignRegionStageId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("CampaignRegionStage");
+                });
+
+            modelBuilder.Entity("MOE_UI.Models.Region", b =>
+                {
+                    b.HasOne("MOE_UI.Models.Domain", "Domain")
+                        .WithMany("Regions")
+                        .HasForeignKey("DomainId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Domain");
                 });
 
             modelBuilder.Entity("MOE_UI.Models.Campaign", b =>
@@ -302,14 +384,24 @@ namespace MOE_UI.Migrations
 
             modelBuilder.Entity("MOE_UI.Models.CampaignRegionStage", b =>
                 {
-                    b.Navigation("Actions");
-
                     b.Navigation("CampaignRegionStageCriterias");
+                });
+
+            modelBuilder.Entity("MOE_UI.Models.Definitions.ApiCommand", b =>
+                {
+                    b.Navigation("CampaignRegionStages");
                 });
 
             modelBuilder.Entity("MOE_UI.Models.Domain", b =>
                 {
                     b.Navigation("Campaigns");
+
+                    b.Navigation("Regions");
+                });
+
+            modelBuilder.Entity("MOE_UI.Models.Region", b =>
+                {
+                    b.Navigation("CampaignRegions");
                 });
 #pragma warning restore 612, 618
         }

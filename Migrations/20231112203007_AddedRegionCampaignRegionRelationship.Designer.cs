@@ -4,6 +4,7 @@ using MOE_UI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MOE_UI.Migrations
 {
     [DbContext(typeof(MyApplicationContext))]
-    partial class MyApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231112203007_AddedRegionCampaignRegionRelationship")]
+    partial class AddedRegionCampaignRegionRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,8 +66,6 @@ namespace MOE_UI.Migrations
 
                     b.HasKey("ActionId");
 
-                    b.HasIndex("CampaignRegionStageId");
-
                     b.ToTable("Actions");
                 });
 
@@ -93,8 +94,6 @@ namespace MOE_UI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CampaignId");
-
-                    b.HasIndex("DomainId");
 
                     b.ToTable("Campaigns");
                 });
@@ -133,8 +132,6 @@ namespace MOE_UI.Migrations
 
                     b.HasKey("CampaignRegionId");
 
-                    b.HasIndex("CampaignId");
-
                     b.HasIndex("RegionId");
 
                     b.ToTable("CampaignRegions");
@@ -158,10 +155,6 @@ namespace MOE_UI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CampaignRegionStageId");
-
-                    b.HasIndex("ApiCommandId");
-
-                    b.HasIndex("CampaignRegionId");
 
                     b.ToTable("CampaignRegionStages");
                 });
@@ -193,8 +186,6 @@ namespace MOE_UI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CampaignRegionStageCriteriaId");
-
-                    b.HasIndex("CampaignRegionStageId");
 
                     b.ToTable("CampaignRegionStageCriterias");
                 });
@@ -228,9 +219,7 @@ namespace MOE_UI.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DomainId"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DomainName")
                         .IsRequired()
@@ -244,20 +233,8 @@ namespace MOE_UI.Migrations
                         new
                         {
                             DomainId = 1,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2023, 11, 12, 20, 30, 7, 85, DateTimeKind.Local).AddTicks(3960),
                             DomainName = "CORP"
-                        },
-                        new
-                        {
-                            DomainId = 2,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DomainName = "CORP2"
-                        },
-                        new
-                        {
-                            DomainId = 3,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DomainName = "CORP3"
                         });
                 });
 
@@ -316,73 +293,15 @@ namespace MOE_UI.Migrations
                     b.ToTable("Regions");
                 });
 
-            modelBuilder.Entity("MOE_UI.Models.Action", b =>
-                {
-                    b.HasOne("MOE_UI.Models.CampaignRegionStage", "CampaignRegionStage")
-                        .WithMany("Actions")
-                        .HasForeignKey("CampaignRegionStageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CampaignRegionStage");
-                });
-
-            modelBuilder.Entity("MOE_UI.Models.Campaign", b =>
-                {
-                    b.HasOne("MOE_UI.Models.Domain", null)
-                        .WithMany("Campaigns")
-                        .HasForeignKey("DomainId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("MOE_UI.Models.CampaignRegion", b =>
                 {
-                    b.HasOne("MOE_UI.Models.Campaign", "Campaign")
-                        .WithMany("CampaignRegions")
-                        .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("MOE_UI.Models.Region", "Region")
                         .WithMany("CampaignRegions")
                         .HasForeignKey("RegionId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Campaign");
 
                     b.Navigation("Region");
-                });
-
-            modelBuilder.Entity("MOE_UI.Models.CampaignRegionStage", b =>
-                {
-                    b.HasOne("MOE_UI.Models.Definitions.ApiCommand", "ApiCommand")
-                        .WithMany("CampaignRegionStages")
-                        .HasForeignKey("ApiCommandId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MOE_UI.Models.CampaignRegion", "CampaignRegion")
-                        .WithMany("CampaignRegionStages")
-                        .HasForeignKey("CampaignRegionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ApiCommand");
-
-                    b.Navigation("CampaignRegion");
-                });
-
-            modelBuilder.Entity("MOE_UI.Models.CampaignRegionStageCriteria", b =>
-                {
-                    b.HasOne("MOE_UI.Models.CampaignRegionStage", "CampaignRegionStage")
-                        .WithMany("CampaignRegionStageCriterias")
-                        .HasForeignKey("CampaignRegionStageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CampaignRegionStage");
                 });
 
             modelBuilder.Entity("MOE_UI.Models.Region", b =>
@@ -390,38 +309,14 @@ namespace MOE_UI.Migrations
                     b.HasOne("MOE_UI.Models.Domain", "Domain")
                         .WithMany("Regions")
                         .HasForeignKey("DomainId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Domain");
                 });
 
-            modelBuilder.Entity("MOE_UI.Models.Campaign", b =>
-                {
-                    b.Navigation("CampaignRegions");
-                });
-
-            modelBuilder.Entity("MOE_UI.Models.CampaignRegion", b =>
-                {
-                    b.Navigation("CampaignRegionStages");
-                });
-
-            modelBuilder.Entity("MOE_UI.Models.CampaignRegionStage", b =>
-                {
-                    b.Navigation("Actions");
-
-                    b.Navigation("CampaignRegionStageCriterias");
-                });
-
-            modelBuilder.Entity("MOE_UI.Models.Definitions.ApiCommand", b =>
-                {
-                    b.Navigation("CampaignRegionStages");
-                });
-
             modelBuilder.Entity("MOE_UI.Models.Domain", b =>
                 {
-                    b.Navigation("Campaigns");
-
                     b.Navigation("Regions");
                 });
 
